@@ -1,0 +1,17 @@
+create sequence seq_board;
+
+create table tbl_freeboard(
+bno number(10, 0),
+title varchar2(200) not null,
+content varchar2(2000) not null,
+writer varchar2(50) not null,
+regdate date default sysdate,
+updatedate date default sysdate,
+hits int);
+
+alter table tbl_freeboard add constraint pk_freeboard
+primary key(bno);
+
+insert into tbl_freeboard(bno, title, content, writer, hits) values (SEQ_BOARD.NEXTVAL, 'TEST TITLE', 'TEST CONTENT', 'TEST USER', 0);
+
+select * from tbl_freeboard;
