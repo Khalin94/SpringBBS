@@ -15,7 +15,7 @@ public class TimeMapperTests {
 	
 	private TimeMapper timeMapper;
 
-	private BoardMapper board;
+	private FreeBoardMapper board;
 	
 	@Autowired
 	public void setTimeMapper(TimeMapper timeMapper) {
@@ -23,7 +23,7 @@ public class TimeMapperTests {
 	}
 	
 	@Autowired
-	public void setBoardMapper(BoardMapper board) {
+	public void setBoardMapper(FreeBoardMapper board) {
 		this.board = board;
 	}
 	

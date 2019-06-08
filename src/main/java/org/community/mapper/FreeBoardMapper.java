@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 import org.community.domain.FreeBoardVO;
 
-public interface BoardMapper {
+public interface FreeBoardMapper {
 
 	@Select("select * from tbl_freeboard where bno > 0")
 	public List<FreeBoardVO> get();

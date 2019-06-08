@@ -16,8 +16,8 @@ import lombok.extern.log4j.Log4j;
 public class BoardMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
-	private BoardMapper mapper; 
-/*	
+	private FreeBoardMapper mapper; 
+	
 	@Test
 	public void testInsert() {
 		FreeBoardVO vo = new FreeBoardVO();
@@ -31,7 +31,7 @@ public class BoardMapperTests {
 		log.info(vo);
 		
 	}
-*/	
+	
 	@Test
 	public void testRead() {
 		FreeBoardVO vo = new FreeBoardVO();

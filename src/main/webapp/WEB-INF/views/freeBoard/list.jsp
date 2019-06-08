@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,13 +29,15 @@
                     </tr>
                   </thead>
                   
+                <c:forEach items="${list }" var = "board">
                   <tr>
-                  	<td>1</td>
-                  	<td>제목</td>
-                  	<td>이름</td>
-                  	<td>2019-05-04</td>
-                  	<td>1</td>
+                  	<td><c:out value="${board.bno }"></c:out></td>
+                  	<td><c:out value="${board.title }"></c:out><td>
+                  	<td><c:out value="${board.content }"></c:out><td>
+                  	<td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regDate }"></fmt:formatDate></td>
+                  	<td><c:out value="${board.hits }"></c:out></td>
                   </tr>
+				</c:forEach>
                 </table>
               </div>
             </div>
