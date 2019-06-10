@@ -2,6 +2,7 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 import org.community.mapper.FreeBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,8 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public List<FreeBoardVO> getAll() {
-		return mapper.get();
+	public List<FreeBoardVO> getAll(Criteria cri) {
+		return mapper.get(cri);
 	}
 	
 	

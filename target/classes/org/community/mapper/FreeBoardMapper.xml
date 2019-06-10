@@ -22,4 +22,19 @@
 	where bno = #{bno}
 </update>
 
+<select id ="get" resultType = "org.community.domain.FreeBoardVO">
+	<![CDATA[
+		select bno, title, content, writer, regdate, updatedate, hits
+			from
+			(select /*+INDEX_DESC(tbl_freeboard pk_freeboard) */
+			rownum rn, bno, title, content, writer, regdate, updatedate, hits
+			from tbl_freeboard
+			where rownum <= #{pageNum} * #{amount}
+			)	
+			
+			where rn > (#{pageNum}-1) * #{amount}
+	]]>
+	
+</select>
+
 </mapper>

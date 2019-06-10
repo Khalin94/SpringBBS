@@ -1,6 +1,10 @@
 package org.community.controller;
 
+import org.community.domain.Criteria;
+import org.community.service.FreeBoardService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -28,8 +32,18 @@ public class HomeController {
 //		return "home";
 //	}
 	
+	private FreeBoardService service;
+	
+	@Autowired
+	private void setFreeBoardService(FreeBoardService service) {
+		this.service = service;
+	}
+
 	@GetMapping("/")
-	public String index() {
+	public String index(Criteria cri, Model model) {
+		
+		model.addAttribute("list", service.getAll(cri));
+
 		return "index";
 	}
 	

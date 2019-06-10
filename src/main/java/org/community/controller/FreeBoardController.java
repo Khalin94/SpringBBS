@@ -1,5 +1,6 @@
 package org.community.controller;
 
+import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 import org.community.service.FreeBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import oracle.jdbc.proxy.annotation.Post;
 
 @Controller
 @RequestMapping("/freeBoard/*")
@@ -25,19 +24,25 @@ public class FreeBoardController {
 	}
 	
 	@GetMapping("/list")
-	public void list(Model model)  {
-			model.addAttribute("list", service.getAll());
+	public void list(Criteria cri, Model model)  {
+			model.addAttribute("list", service.getAll(cri));
+	}
+	
+	@GetMapping("/register")
+	public void register() {
+		
 	}
 	
 	@PostMapping("/register")
 	public String register(FreeBoardVO vo, RedirectAttributes ra) {
+		vo.setHits((long)0);
 		service.register(vo);
 		ra.addFlashAttribute("result", vo.getBno());
 		
 		return "redirect:/freeBoard/list";
 	}
 	
-	@GetMapping("/get")
+	@GetMapping({"/get", "/modify"})
 	public void get(@RequestParam("bno") Long bno, Model model) {
 		model.addAttribute("board", service.get(bno));
 	}

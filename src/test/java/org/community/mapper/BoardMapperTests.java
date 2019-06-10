@@ -1,5 +1,8 @@
 package org.community.mapper;
 
+import java.util.List;
+
+import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +20,7 @@ public class BoardMapperTests {
 	
 	@Setter(onMethod_ = @Autowired)
 	private FreeBoardMapper mapper; 
-	
+/*	
 	@Test
 	public void testInsert() {
 		FreeBoardVO vo = new FreeBoardVO();
@@ -31,7 +34,7 @@ public class BoardMapperTests {
 		log.info(vo);
 		
 	}
-	
+*/	
 	@Test
 	public void testRead() {
 		FreeBoardVO vo = new FreeBoardVO();
@@ -45,7 +48,7 @@ public class BoardMapperTests {
 		log.info(mapper.delete(5l));
 	}
 */
-	
+/*	
 	@Test
 	public void testUpdate() {
 		FreeBoardVO vo = new FreeBoardVO();
@@ -56,5 +59,18 @@ public class BoardMapperTests {
 		
 		log.info(mapper.update(vo));
 		
+	}
+	*/
+	
+	@Test
+	public void testGet() {
+		Criteria cri = new Criteria();
+		
+		cri.setPageNum(5);
+		cri.setAmount(20);
+		
+		List<FreeBoardVO> list = mapper.get(cri);
+		
+		list.forEach(board -> log.info(board));
 	}
 }

@@ -2,6 +2,7 @@ package org.community.service;
 
 import static org.junit.Assert.assertNotNull;
 
+import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,6 +69,6 @@ public class FreeBoardServiceTests {
 */	
 	@Test
 	public void testGetAll() {
-		service.getAll().forEach(board -> log.info(board));
+		service.getAll(new Criteria(2, 10)).forEach(board -> log.info(board));
 	}
 }

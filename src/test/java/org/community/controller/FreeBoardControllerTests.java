@@ -21,14 +21,14 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class FreeBoardControllerTests {
 	
-	@Setter(onMethod_ = @Autowired)
+//	@Setter(onMethod_ = @Autowired)
 	private WebApplicationContext ctx;
-/*	
+	
 	@Autowired
 	private void setWebApplicationContext(WebApplicationContext ctx) {
 		this.ctx = ctx;
 	}
-*/	
+	
 	private MockMvc mock;
 	
 	@Before
@@ -39,7 +39,7 @@ public class FreeBoardControllerTests {
 	@Test
 	public void testList() throws Exception {
 		log.info(
-				mock.perform(MockMvcRequestBuilders.get("/freeBoard/list")).andReturn().getModelAndView().getModelMap()
+				mock.perform(MockMvcRequestBuilders.get("/freeBoard/list").param("pageNum", "10").param("amount", "10")).andReturn().getModelAndView().getModelMap()
 				);
 	}
 /*	
@@ -58,7 +58,7 @@ public class FreeBoardControllerTests {
 	public void testGet() throws Exception{
 		log.info(mock.perform(MockMvcRequestBuilders.get("/freeBoard/get").param("bno", "4")).andReturn().getModelAndView().getModelMap());
 	}
-	
+/*	
 	@Test
 	public void testModify() throws Exception{
 		String resultPage = mock.perform(MockMvcRequestBuilders.post("/freeBoard/modify").param("bno", "4").param("title", "Controller Modify").param("content", "Controller Modify Content").param("writer", "Modify Writer")).andReturn().getModelAndView().getViewName();
@@ -74,5 +74,5 @@ public class FreeBoardControllerTests {
 		
 		log.info(resultPage);
 	}
-	
+*/	
 }

@@ -33,10 +33,10 @@ public class TimeMapperTests {
 		log.info(getClass().getName());
 		log.info(timeMapper.getTime());
 	}
-	
+/*	
 	@Test
 	public void testGet() {
 		board.get().forEach(board -> log.info(board));
 	}
-
+*/
 }

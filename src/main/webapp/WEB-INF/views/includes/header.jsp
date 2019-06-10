@@ -22,7 +22,7 @@
   <link href="/resources/startbootstrap-sb-admin-2-gh-pages/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
-
+<script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -120,7 +120,7 @@
 
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="board/freeBoard">
+        <a class="nav-link" href="/freeBoard/list">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>자유게시판</span></a>
       </li>

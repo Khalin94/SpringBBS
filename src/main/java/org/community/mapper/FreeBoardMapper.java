@@ -4,16 +4,13 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 
 public interface FreeBoardMapper {
 
-	@Select("select * from tbl_freeboard where bno > 0")
-	public List<FreeBoardVO> get();
-	/*
-	 * @Insert("insert into freeboard (bno, title, content, writer, hits) values (seq_board.nextval, 'boardTest', 'ContentTest', 'User', 0)"
-	 * ) public
-	 */
+//	@Select("select * from tbl_freeboard where bno > 0")
+	public List<FreeBoardVO> get(Criteria cri);
 	
 	public void insert(FreeBoardVO vo);
 	
