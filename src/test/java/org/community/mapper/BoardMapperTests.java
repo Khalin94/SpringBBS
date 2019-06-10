@@ -73,4 +73,16 @@ public class BoardMapperTests {
 		
 		list.forEach(board -> log.info(board));
 	}
+	
+	@Test
+	public void testSearch() {
+		Criteria cri = new Criteria();
+		
+		cri.setKeyword("가나");
+		cri.setType("T");
+		
+		List<FreeBoardVO> list = mapper.get(cri);
+		
+		list.forEach(board -> log.info(board));
+	}
 }

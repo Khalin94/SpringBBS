@@ -49,6 +49,11 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	public List<FreeBoardVO> getAll(Criteria cri) {
 		return mapper.get(cri);
 	}
+
+	@Override
+	public int total(Criteria cri) {
+		return mapper.getTotalCount(cri);
+	}
 	
 	
 

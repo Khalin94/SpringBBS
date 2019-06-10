@@ -16,4 +16,6 @@ public interface FreeBoardService {
 	public boolean delete(Long bno);
 	
 	public List<FreeBoardVO> getAll(Criteria cri);
+	
+	public int total(Criteria cri);
 }

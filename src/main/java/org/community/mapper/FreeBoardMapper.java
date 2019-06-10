@@ -21,5 +21,8 @@ public interface FreeBoardMapper {
 	public int delete(Long bno);
 	
 	public int update(FreeBoardVO vo); 
+	
+	@Select("select count(*) from tbl_freeboard where bno > 0")
+	public int getTotalCount(Criteria cri);
 
 }

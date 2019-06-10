@@ -39,7 +39,7 @@ public class FreeBoardControllerTests {
 	@Test
 	public void testList() throws Exception {
 		log.info(
-				mock.perform(MockMvcRequestBuilders.get("/freeBoard/list").param("pageNum", "10").param("amount", "10")).andReturn().getModelAndView().getModelMap()
+				mock.perform(MockMvcRequestBuilders.get("/freeBoard/list").param("pageNum", "2").param("amount", "10")).andReturn().getModelAndView().getModelMap()
 				);
 	}
 /*	

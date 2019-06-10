@@ -49,7 +49,7 @@
 	<div class="card-header py-3">
 		<h6 class="m-0 font-weight-bold text-primary">
 			게시글
-			<button id="regBtn" type="button" class="btn btn-sm btn-dark">글쓰기</button>
+			<button id="regBtn" type="button" class="btn btn-dark float-right">글쓰기</button>
 		</h6>
 	</div>
 	<div class="card-body">
@@ -58,19 +58,19 @@
 				cellspacing="0">
 				<thead>
 					<tr>
-						<td>#</td>
-						<td>title</td>
-			<!--  		<td>content</td> -->
-						<td>writer</td>
-						<td>date</td>
-						<td>조회수</td>
+						<th>#</th>
+						<th class="w-50">title</th>
+			<!--  		<th>content</th> -->
+						<th>writer</th>
+						<th>date</th>
+						<th>조회수</th>
 					</tr>
 				</thead>
 
 				<c:forEach items="${list }" var="board">
 					<tr>
 						<td><c:out value="${board.bno }" /></td>
-						<td><a href="/freeBoard/get?bno=<c:out value='${board.bno }' />">
+						<td><a class="pageMove" href="<c:out value='${board.bno }' />">
 						<c:out value="${board.title }" /></a></td>
 			<!--  		<td><c:out value="${board.content }" /></td> -->
 						<td><c:out value="${board.writer }" /></td>
@@ -81,7 +81,53 @@
 				</c:forEach>
 
 			</table>
-		</div>
+
+		<div class="row mb-4">
+			<form id="searchForm" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/freeBoard/list" method="get">
+            <div class="input-group">
+           		<select name="type" class="form-control">
+           			<option value="TC">제목+내용</option>
+           			<option value="T">제목</option>
+           			<option value="C">내용</option>
+           			<option value="W">작성자<option>
+           		</select>
+              <input type="text" class="form-control bg-light border-0 small" name="keyword" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+              <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+              <div class="input-group-append">
+                <button class="btn btn-primary">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+       </div>
+		
+			<div class = "float-right">
+				<ul class="pagination">
+
+					<c:if test="${pageMaker.prev }">
+					 <li class="page-item"><a class="page-link" href="${pageMaker.startPage -1 }">Previous</a></li>
+					</c:if>	
+					
+					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
+			  		 <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' }"><a class="page-link" href="${num }">${num }</a></li>
+					</c:forEach>
+
+					<c:if test="${pageMaker.next }">
+			 		 <li class="page-item"><a class="page-link" href="${pageMaker.endPage +1 }">Next</a></li>
+					</c:if>
+
+				</ul>
+				
+				<form id="actionForm" action="/freeBoard/list" method="get">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+					<input type="hidden" name="type" value="${pageMaker.cri.type }">
+					<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+				</form>
+			</div>
+
 	</div>
 </div>
 
@@ -135,6 +181,22 @@
 				$("#regBtn").on("click", function() {
 					self.location = "/freeBoard/register";
 				});
+				
+				var actionForm = $("#actionForm");
+				
+				$(".page-item a").on("click", function(e){
+					e.preventDefault();
+					
+					actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+					actionForm.submit();
+				});
+				
+				$(".pageMove").on("click", function(e){
+					e.preventDefault();
+					actionForm.append("<input type='hidden' name='bno' value ='"+$(this).attr("href")+"'>");
+					actionForm.attr("action", "/freeBoard/get");
+					actionForm.submit();
+				})
 			});
 </script>
 

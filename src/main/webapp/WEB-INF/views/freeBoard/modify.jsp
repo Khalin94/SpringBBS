@@ -16,6 +16,12 @@
 	</div>
 	<div class="card-body">
 		<form role="form" action="/freeBoard/modify" method="post">
+		
+			<input type="hidden" name="pageNum" value="${cri.pageNum }">
+			<input type="hidden" name="amount" value="${cri.amount }">
+			<input type="hidden" name="type" value="${cri.type }">
+			<input type="hidden" name="keyword" value="${cri.keyword }">
+			
 			<div class="form-group">
 				<label>#</label> <input class="form-control" name="bno" value='<c:out value="${board.bno }" />' readonly="readonly">
 			</div>
@@ -60,8 +66,17 @@ $(document).ready(function(){
 		if(operation === 'delete'){
 			formObj.attr("action", "/freeBoard/delete");
 		}else if(operation ==='list'){
-			formObj.arrt("action", "/freeBoard/list");
-			form.Obj.empty();
+			formObj.attr("action", "/freeBoard/list").attr("method", "get");
+			var pageNum = $("input[name='pageNum']").clone();
+			var amount = $("input[name='amount']").clone();
+			var type = $("input[name='type']").clone();
+			var keyword = $("input[name='keyword']").clone();
+
+			formObj.empty();
+			formObj.append(pageNum);
+			formObj.append(amount);
+			formObj.append(type);
+			formObj.append(keyword);
 		}
 		
 		formObj.submit();
