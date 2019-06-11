@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace ="org.community.mapper.DevBoardMapper">
+
+<insert id="insert">
+	<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+		select seq_DevBoard.nextval from dual
+	</selectKey>
+	
+	insert into tbl_devBoard	
+	(bno, title, content, writer, hits) 
+	values(#{bno}, #{title}, #{content}, #{writer}, #{hits})
+</insert>
+
+<update id="update">
+	update tbl_devBoard set title = #{title}, content = #{content}, writer = #{writer}, updateDate = sysdate
+	where bno = #{bno}
+</update>
+
+<select id="list" resultType="org.community.domain.DevBoardVO">
+	
+	select bno, title, content, writer, regDate, hits
+	from tbl_devBoard where bno > 0
+	
+</select>
+
+
+
+</mapper>
