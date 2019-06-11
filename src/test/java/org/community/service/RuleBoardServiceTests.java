@@ -1,5 +1,6 @@
 package org.community.service;
 
+import org.community.domain.RuleBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,41 @@ public class RuleBoardServiceTests {
 	@Test
 	public void readTest() {
 
-		log.info(service.get(1l));
+		log.info(service.get(3l));
+	}
+	
+	@Test
+	public void getAllTest() {
+		service.getAll().forEach(board -> log.info(board));
+	}
+	
+	@Test
+	public void registerTest() {
+		RuleBoardVO vo = new RuleBoardVO();
+		
+		vo.setTitle("service test title");
+		vo.setContent("service test content");
+		vo.setWriter("service test writer");
+		vo.setHits((long)0);
+		service.register(vo);
+		
+		log.info(vo.getBno());
+	}
+	
+
+	
+	@Test
+	public void modifyTest() {
+		RuleBoardVO vo = service.get(5l);
+		
+		vo.setTitle("modify Test");
+		vo.setContent("modify content");
+		
+		log.info(service.modify(vo));
+	}
+	@Test
+	public void removeTest() {
+		log.info(service.remove(3l));
 	}
 
 }

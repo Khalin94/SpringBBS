@@ -2,6 +2,7 @@ package org.community.controller;
 
 import org.community.domain.Criteria;
 import org.community.service.FreeBoardService;
+import org.community.service.RuleBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,17 +33,24 @@ public class HomeController {
 //		return "home";
 //	}
 	
-	private FreeBoardService service;
+	private FreeBoardService freeService;
+	private RuleBoardService ruleService;
 	
 	@Autowired
-	private void setFreeBoardService(FreeBoardService service) {
-		this.service = service;
+	private void setFreeBoardService(FreeBoardService freeService) {
+		this.freeService = freeService;
+	}
+	
+	@Autowired
+	private void setRuleBoardService(RuleBoardService ruleService) {
+		this.ruleService = ruleService;
 	}
 
 	@GetMapping("/")
 	public String index(Criteria cri, Model model) {
 		
-		model.addAttribute("list", service.getAll(cri));
+		model.addAttribute("freeList", freeService.getAll(cri));
+		model.addAttribute("ruleList", ruleService.getAll());
 
 		return "index";
 	}

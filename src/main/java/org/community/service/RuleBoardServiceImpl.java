@@ -23,4 +23,23 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 		return mapper.read(bno);
 	}
 
+	@Override
+	public List<RuleBoardVO> getAll() {
+			return mapper.list();
+	}
+
+	@Override
+	public void register(RuleBoardVO vo) {
+			mapper.insert(vo);
+	}
+
+	@Override
+	public boolean modify(RuleBoardVO vo) {
+		return mapper.update(vo) == 1;
+	}
+
+	@Override
+	public boolean remove(Long bno) {
+		return mapper.delete(bno) == 1;
+	}
 }

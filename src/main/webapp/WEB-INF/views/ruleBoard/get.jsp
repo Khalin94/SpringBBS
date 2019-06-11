@@ -49,12 +49,12 @@
 		var operForm = $("#operForm");
 		
 		$("button[data-oper='modify']").on("click", function(e){
-			operForm.attr("action", "/freeBoard/modify").submit();
+			operForm.attr("action", "/ruleBoard/modify").submit();
 		});
 		
 		$("button[data-oper='list']").on("click", function(e){
 			operForm.find("#bno").remove();
-			operForm.attr("action", "/freeBoard/list").submit();
+			operForm.attr("action", "/ruleBoard/list").submit();
 		});
 	});
 </script>

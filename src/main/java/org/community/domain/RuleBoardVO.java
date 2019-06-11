@@ -12,7 +12,7 @@ public class RuleBoardVO {
 	private String content;
 	private String writer;
 	private Date regDate;
-	private Date updatedate;
+	private Date updateDate;
 	private Long hits;
 
 }

@@ -66,7 +66,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">내용</h6>
-            <a class="collapse-item" href="buttons.html">이용수칙</a>
+            <a class="collapse-item" href="<c:out value='/ruleBoard/list' />">이용수칙</a>
             <a class="collapse-item" href="cards.html">변경사항</a>
           </div>
         </div>

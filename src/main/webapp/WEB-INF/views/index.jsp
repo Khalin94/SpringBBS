@@ -23,7 +23,37 @@
           <div class="row">
 
           <!-- DataTales Example -->
-          	<div class="card shadow mb-4 mr-3">
+          	
+          
+          <div class="card shadow mb-4 mr-3">
+          	  <div class="card-header py-3">
+          	    <h6 class="m-0 font-weight-bold text-primary">이용 수칙</h6>
+          	  </div>
+          	  <div class="card-body">
+          	    <div class="table-responsive">
+          	      <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                	<thead>
+                		<tr>
+                			<th>#</th>
+                			<th>제목</th>
+                			<th>작성자</th>
+                		</tr>	
+                	</thead>
+                	<tbody>
+                		<c:forEach items="${ruleList}" var="board" begin="0" end="4">
+                		<tr>
+                			<td><c:out value="${board.bno }" /></td>
+                			<td><a href="/ruleBoard/get?bno=<c:out value="${board.bno }" />"> <c:out value="${board.title }" /></a></td>
+                			<td><c:out value="${board.writer }" /></td>
+                		</tr>
+                		</c:forEach>
+                	</tbody>
+                </table>
+          	</div>
+          	</div>
+          </div>
+          
+          <div class="card shadow mb-4 mr-3">
           	  <div class="card-header py-3">
           	    <h6 class="m-0 font-weight-bold text-primary">자유 게시판</h6>
           	  </div>
@@ -38,7 +68,7 @@
                 		</tr>	
                 	</thead>
                 	<tbody>
-                	<c:forEach items="${list }" var="board" begin="0" end="4">
+                	<c:forEach items="${freeList }" var="board" begin="0" end="4">
                 		<tr>
                 			<td><c:out value="${board.bno }" /></td>
                 			<td><a href="/freeBoard/get?bno=<c:out value='${board.bno }' />"> 
@@ -47,34 +77,6 @@
                 			<td><c:out value="${board.writer }" /></td>
                 		</tr>
 					</c:forEach>
-                	</tbody>
-                </table>
-          	</div>
-          	</div>
-          </div>
-          
-          <div class="card shadow mb-4">
-          	  <div class="card-header py-3">
-          	    <h6 class="m-0 font-weight-bold text-primary">second bbs</h6>
-          	  </div>
-          	  <div class="card-body">
-          	    <div class="table-responsive">
-          	      <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
-                	<thead>
-                		<tr>
-                			<th>Name</th>
-                			<th>age</th>
-                			<th>location</th>
-                			<th>update</th>
-                		</tr>	
-                	</thead>
-                	<tbody>
-                		<tr>
-                			<th>testUser</th>
-                			<th>20</th>
-                			<th>seoul</th>
-                			<th>2019/06/05</th>
-                		</tr>
                 	</tbody>
                 </table>
           	</div>

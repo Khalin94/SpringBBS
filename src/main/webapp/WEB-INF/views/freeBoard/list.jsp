@@ -54,8 +54,7 @@
 	</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%"
-				cellspacing="0">
+			<table class="table table-bordered" id="dataTable" width="100%"	cellspacing="0">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -173,6 +172,10 @@
 					if (parseInt(result) > 0) {
 						$(".modal-body").html(
 								"게시글 " + parseInt(result) + "번이 등록되었습니다.");
+					}
+					
+					if(result.equals("successRemove")){
+						$(".modal-body").html("삭제되었습니다.");
 					}
 
 					$("#myModal").modal("show");
