@@ -22,7 +22,12 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="org.community.controller" />
+<!-- 	
+	<context:component-scan base-package="org.community.controller.HomeController" />
+	<context:component-scan base-package="org.community.controller.FreeBoardController"></context:component-scan>
+	<context:component-scan base-package="org.community.controller.RuleBoardController"></context:component-scan>
+	<context:component-scan base-package="org.community.controller.DevBoardController"></context:component-scan>
 	
-	
+ -->	
 	
 </beans:beans>

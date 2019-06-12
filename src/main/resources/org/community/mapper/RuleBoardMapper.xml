@@ -18,7 +18,7 @@
 </update>
 
 <select id="list" resultType="org.community.domain.RuleBoardVO">
-	select bno, title, writer, regDate, hits from tbl_ruleBoard where bno &gt; 0
+	select bno, title, writer, regDate, hits from (select /*+ INDEX_DESC(tbl_ruleBoard pk_ruleBoard) */ rownum rn, bno, title, content, writer, regDate, hits from tbl_ruleBoard) tbl_ruleBoard where rownum &gt; 0
 </select>
 
 </mapper>

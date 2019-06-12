@@ -1,6 +1,5 @@
 package org.community.controller;
 
-import org.community.service.DevBoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,13 +15,13 @@ import org.springframework.web.context.WebApplicationContext;
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 @WebAppConfiguration
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/root-context.xml", "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
 @Log4j
-public class DevBoardControllerTests {
+public class JobsBoardControllerTests {
 	
 	private WebApplicationContext ctx;
-	
+
 	@Autowired
 	private void setWebApplicationContext(WebApplicationContext ctx) {
 		this.ctx = ctx;
@@ -34,35 +33,38 @@ public class DevBoardControllerTests {
 	public void setUp() {
 		mock = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
-	
+/*	
 	@Test
 	public void testGet() throws Exception {
-		log.info(mock.perform(MockMvcRequestBuilders.get("/devBoard/get").param("bno", "2")).andReturn().getModelAndView().getModelMap());
+		log.info(mock.perform(MockMvcRequestBuilders.get("/jobsBoard/get").param("bno", "5")).andReturn().getModelAndView().getModelMap());
 	}
 	
 	@Test
 	public void testList() throws Exception{
-		log.info(
-		mock.perform(MockMvcRequestBuilders.get("/devBoard/list")).andReturn().getModelAndView().getModelMap()
-		);
+		log.info(mock.perform(MockMvcRequestBuilders.get("/jobsBoard/list")).andReturn().getModelAndView().getModelMap());
 	}
-/*	
-	@Test
-	public void testRegister() throws Exception{
-		log.info(mock.perform(MockMvcRequestBuilders.post("/devBoard/register").param("title", "mock test").param("content", "mock content")
-				.param("writer", "mock writer").param("hits", "0")).andReturn().getModelAndView().getViewName());
-		
-	}
-
-	@Test
-	public void testModify() throws Exception{
-		log.info(mock.perform(MockMvcRequestBuilders.post("/devBoard/modify").param("bno", "2").param("title", "mock modify").param("content", "mock content").param("writer", "mock writer")).andReturn().getModelAndView().getViewName());
-		
-	}
-*/
 	
 	@Test
-	public void testRemove() throws Exception{
-		log.info(mock.perform(MockMvcRequestBuilders.post("/devBoard/remove").param("bno", "8")).andReturn().getModelAndView().getViewName());
+	public void testRegister() throws Exception{
+		mock.perform(MockMvcRequestBuilders.post("/jobsBoard/register")
+				.param("title", "controller test")
+				.param("content", "controller test").param("writer", "controller test").param("hits", "0"))
+		.andReturn().getModelAndView().getViewName();
 	}
+	
+	
+	@Test
+	public void testModify() throws Exception{
+		log.info(mock.perform(MockMvcRequestBuilders.post("/jobsBoard/modify")
+				.param("bno", "5").param("title", "modify controller").param("content", "modify controller").param("writer", "modify controller").param("hits", "0"))
+				.andReturn().getModelAndView().getViewName());
+		
+	}
+*/	
+	@Test
+	public void testRemove() throws Exception{
+		log.info(mock.perform(MockMvcRequestBuilders.post("/jobsBoard/remove")
+				.param("bno", "5")).andReturn().getModelAndView().getViewName());
+	}
+
 }

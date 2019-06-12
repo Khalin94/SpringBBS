@@ -22,7 +22,7 @@
 <select id="list" resultType="org.community.domain.DevBoardVO">
 	
 	select bno, title, content, writer, regDate, hits
-	from tbl_devBoard where bno > 0
+	from tbl_devBoard where bno > 0 order by bno desc
 	
 </select>
 

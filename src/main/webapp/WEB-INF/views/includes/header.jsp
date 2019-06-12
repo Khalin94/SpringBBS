@@ -105,15 +105,11 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-          	<h6 class="collapse-header">개발자들 게시판</h6>
-            <a class="collapse-item" href="login.html">Java 개발자들</a>
-            <a class="collapse-item" href="register.html">C 개발자들</a>
-            <a class="collapse-item" href="forgot-password.html">Python 개발자들</a>
+          	<h6 class="collapse-header">개발자들</h6>
+            <a class="collapse-item" href="/devBoard/list">개발자 게시판</a>
             <div class="collapse-divider"></div>
-            <h6 class="collapse-header">이론</h6>
-            <a class="collapse-item" href="404.html">알고리즘</a>
-            <a class="collapse-item" href="blank.html">자료구조</a>
-            <a class="collapse-item" href="#">etc...(OS , AI , C/S)</a>
+            <h6 class="collapse-header">JOBS</h6>
+            <a class="collapse-item" href="/jobsBoard/list">구인·구직</a>
           </div>
         </div>
       </li>
@@ -126,11 +122,6 @@
       </li>
 
       <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span></span></a>
-      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">
