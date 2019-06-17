@@ -199,7 +199,17 @@
 					actionForm.append("<input type='hidden' name='bno' value ='"+$(this).attr("href")+"'>");
 					actionForm.attr("action", "/freeBoard/get");
 					actionForm.submit();
-				})
+				});
+				
+				var searchForm = $("#searchForm");
+				
+				$("#searchForm button").on("click", function(e){
+				
+					searchForm.find("input[name='pageNum']").val(1);
+					e.preventDefault();
+					
+					searchForm.submit();
+				});
 			});
 </script>
 

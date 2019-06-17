@@ -1,5 +1,8 @@
 package org.community.service;
 
+import java.util.List;
+
+import org.community.domain.Criteria;
 import org.community.domain.DevBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +29,12 @@ public class DevBoardServiceTests {
 		log.info(service.get(4l));
 	}
 */	
+	
+	@Test
+	public void testGetAll() {
+		List<DevBoardVO> list = service.getAll(new Criteria(1, 10));
+		list.forEach(ele -> log.info(ele));
+	}
 	/*
 	@Test
 	public void testRegister() {
@@ -50,10 +59,10 @@ public class DevBoardServiceTests {
 		
 		log.info(service.modify(vo));
 	}
-*/	
+	
 	@Test
 	public void testRemove() {
 		log.info(service.remove(7l));
 	}
-
+*/
 }

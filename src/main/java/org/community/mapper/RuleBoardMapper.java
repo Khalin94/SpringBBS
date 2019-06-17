@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.community.domain.Criteria;
 import org.community.domain.RuleBoardVO;
 
 public interface RuleBoardMapper {
@@ -12,7 +13,7 @@ public interface RuleBoardMapper {
 	public RuleBoardVO read(Long bno);
 	
 //	@Select("seclt * from tbl_ruleBoard where bno > 0")
-	public  List<RuleBoardVO> list();
+	public  List<RuleBoardVO> list(Criteria cri);
 	
 	public void insert(RuleBoardVO vo);
 	
@@ -20,5 +21,8 @@ public interface RuleBoardMapper {
 	
 	@Delete("delete tbl_ruleBoard where bno = #{bno}")
 	public int delete(Long bno);
+	
+	@Select("select count(*) from tbl_ruleBoard where bno > 0")
+	public int getTotal(Criteria cri);
 
 }

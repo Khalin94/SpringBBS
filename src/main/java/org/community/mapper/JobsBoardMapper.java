@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.community.domain.Criteria;
 import org.community.domain.JobsBoardVO;
 
 public interface JobsBoardMapper {
@@ -11,7 +12,7 @@ public interface JobsBoardMapper {
 	@Select("select bno, title, content, regDate, hits from tbl_jobsBoard where bno = #{bno}")
 	public JobsBoardVO read(Long bno);
 	
-	public List<JobsBoardVO> list();
+	public List<JobsBoardVO> list(Criteria cri);
 	
 	public void insert(JobsBoardVO vo);
 	
@@ -19,5 +20,8 @@ public interface JobsBoardMapper {
 	
 	@Delete("delete tbl_jobsBoard where bno = #{bno}")
 	public int delete(Long bno);
+	
+	@Select("select count(*) from tbl_jobsBoard where bno > 0")
+	public int getTotal(Criteria cri);
 
 }

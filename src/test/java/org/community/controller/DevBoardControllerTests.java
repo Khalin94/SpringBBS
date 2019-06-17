@@ -43,7 +43,7 @@ public class DevBoardControllerTests {
 	@Test
 	public void testList() throws Exception{
 		log.info(
-		mock.perform(MockMvcRequestBuilders.get("/devBoard/list")).andReturn().getModelAndView().getModelMap()
+		mock.perform(MockMvcRequestBuilders.get("/devBoard/list").param("pageNum", "1").param("amount", "5")).andReturn().getModelAndView().getModelMap()
 		);
 	}
 /*	
@@ -59,10 +59,11 @@ public class DevBoardControllerTests {
 		log.info(mock.perform(MockMvcRequestBuilders.post("/devBoard/modify").param("bno", "2").param("title", "mock modify").param("content", "mock content").param("writer", "mock writer")).andReturn().getModelAndView().getViewName());
 		
 	}
-*/
+
 	
 	@Test
 	public void testRemove() throws Exception{
 		log.info(mock.perform(MockMvcRequestBuilders.post("/devBoard/remove").param("bno", "8")).andReturn().getModelAndView().getViewName());
 	}
+	*/
 }

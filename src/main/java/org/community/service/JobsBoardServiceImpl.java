@@ -2,6 +2,7 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.JobsBoardVO;
 import org.community.mapper.JobsBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 	}
 
 	@Override
-	public List<JobsBoardVO> getAll() {
-		return mapper.list();
+	public List<JobsBoardVO> getAll(Criteria cri) {
+		return mapper.list(cri);
 	}
 
 	@Override
@@ -41,6 +42,11 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 	@Override
 	public boolean remove(Long bno) {
 		return mapper.delete(bno) == 1;
+	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
 	}
 
 }

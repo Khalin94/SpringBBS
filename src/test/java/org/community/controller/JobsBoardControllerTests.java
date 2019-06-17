@@ -38,12 +38,12 @@ public class JobsBoardControllerTests {
 	public void testGet() throws Exception {
 		log.info(mock.perform(MockMvcRequestBuilders.get("/jobsBoard/get").param("bno", "5")).andReturn().getModelAndView().getModelMap());
 	}
-	
+*/	
 	@Test
 	public void testList() throws Exception{
-		log.info(mock.perform(MockMvcRequestBuilders.get("/jobsBoard/list")).andReturn().getModelAndView().getModelMap());
+		log.info(mock.perform(MockMvcRequestBuilders.get("/jobsBoard/list").param("pageNum", "1").param("amount", "3")).andReturn().getModelAndView().getModelMap());
 	}
-	
+/*	
 	@Test
 	public void testRegister() throws Exception{
 		mock.perform(MockMvcRequestBuilders.post("/jobsBoard/register")
@@ -60,11 +60,11 @@ public class JobsBoardControllerTests {
 				.andReturn().getModelAndView().getViewName());
 		
 	}
-*/	
+	
 	@Test
 	public void testRemove() throws Exception{
 		log.info(mock.perform(MockMvcRequestBuilders.post("/jobsBoard/remove")
 				.param("bno", "5")).andReturn().getModelAndView().getViewName());
 	}
-
+*/
 }

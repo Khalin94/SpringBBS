@@ -36,9 +36,9 @@ public class RuleBoardControllerTests {
 	
 	@Test
 	public void testList() throws Exception {
-		log.info(mock.perform(MockMvcRequestBuilders.get("/ruleBoard/list")).andReturn().getModelAndView().getModelMap());
+		log.info(mock.perform(MockMvcRequestBuilders.get("/ruleBoard/list").param("pageNum", "1").param("amount", "5")).andReturn().getModelAndView().getModelMap());
 	}
-	
+/*	
 	@Test
 	public void testGet() throws Exception {
 		log.info(mock.perform(MockMvcRequestBuilders.get("/ruleBoard/get").param("bno", "2")).andReturn().getModelAndView().getModelMap());
@@ -65,6 +65,6 @@ public class RuleBoardControllerTests {
 		
 		log.info(page);
 	}
-	
+*/	
 
 }

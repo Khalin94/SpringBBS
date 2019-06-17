@@ -2,6 +2,7 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.RuleBoardVO;
 import org.community.mapper.RuleBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 	}
 
 	@Override
-	public List<RuleBoardVO> getAll() {
-			return mapper.list();
+	public List<RuleBoardVO> getAll(Criteria cri) {
+			return mapper.list(cri);
 	}
 
 	@Override
@@ -42,4 +43,10 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 	public boolean remove(Long bno) {
 		return mapper.delete(bno) == 1;
 	}
+
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
+	}
+	
 }

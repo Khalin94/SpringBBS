@@ -1,5 +1,6 @@
 package org.community.service;
 
+import org.community.domain.Criteria;
 import org.community.domain.RuleBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,8 @@ public class RuleBoardServiceTests {
 	
 	@Test
 	public void getAllTest() {
-		service.getAll().forEach(board -> log.info(board));
+		Criteria cri = new Criteria();
+		service.getAll(cri).forEach(board -> log.info(board));
 	}
 	
 	@Test

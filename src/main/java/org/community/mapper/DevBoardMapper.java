@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.community.domain.Criteria;
 import org.community.domain.DevBoardVO;
 
 public interface DevBoardMapper {
@@ -18,7 +19,10 @@ public interface DevBoardMapper {
 	@Delete("delete tbl_devBoard where bno = #{bno}")
 	public int delete(Long bno);
 	
-	public List<DevBoardVO> list();
+	public List<DevBoardVO> list(Criteria cri);
+	
+	@Select("select count(*) from tbl_devBoard where bno > 0")
+	public int getTotal(Criteria cri);
 	
 
 }

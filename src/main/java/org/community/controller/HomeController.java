@@ -50,7 +50,7 @@ public class HomeController {
 	public String index(Criteria cri, Model model) {
 		
 		model.addAttribute("freeList", freeService.getAll(cri));
-		model.addAttribute("ruleList", ruleService.getAll());
+		model.addAttribute("ruleList", ruleService.getAll(cri));
 
 		return "index";
 	}

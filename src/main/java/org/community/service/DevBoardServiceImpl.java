@@ -2,6 +2,7 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.DevBoardVO;
 import org.community.mapper.DevBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class DevBoardServiceImpl implements DevBoardService{
 	}
 
 	@Override
-	public List<DevBoardVO> getAll() {
-		return mapper.list();
+	public List<DevBoardVO> getAll(Criteria cri) {
+		return mapper.list(cri);
 	}
 
 	@Override
@@ -44,4 +45,10 @@ public class DevBoardServiceImpl implements DevBoardService{
 		return mapper.delete(bno) == 1;
 	}
 
+	@Override
+	public int getTotal(Criteria cri) {
+		return mapper.getTotal(cri);
+	}
+
+	
 }

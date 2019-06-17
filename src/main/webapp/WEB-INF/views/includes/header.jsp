@@ -23,6 +23,8 @@
 
 </head>
 <script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"></script>
+<script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <body id="page-top">
 
   <!-- Page Wrapper -->

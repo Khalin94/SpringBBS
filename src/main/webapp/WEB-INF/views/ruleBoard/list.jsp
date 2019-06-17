@@ -82,7 +82,7 @@
 			</table>
 
 		<div class="row mb-4">
-			<form id="searchForm" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/freeBoard/list" method="get">
+			<form id="searchForm" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="/ruleBoard/list" method="get">
             <div class="input-group">
            		<select name="type" class="form-control">
            			<option value="TC">제목+내용</option>
@@ -91,8 +91,8 @@
            			<option value="W">작성자<option>
            		</select>
               <input type="text" class="form-control bg-light border-0 small" name="keyword" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-              <input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+              <input type="hidden" name="pageNum" value="${page.cri.pageNum }">
+              <input type="hidden" name="amount" value="${page.cri.amount }">
               <div class="input-group-append">
                 <button class="btn btn-primary">
                   <i class="fas fa-search fa-sm"></i>
@@ -105,25 +105,25 @@
 			<div class = "float-right">
 				<ul class="pagination">
 
-					<c:if test="${pageMaker.prev }">
-					 <li class="page-item"><a class="page-link" href="${pageMaker.startPage -1 }">Previous</a></li>
+					<c:if test="${page.prev }">
+					 <li class="page-item"><a class="page-link" href="${page.startPage -1 }">Previous</a></li>
 					</c:if>	
 					
-					<c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage }">
-			  		 <li class="page-item ${pageMaker.cri.pageNum == num ? 'active' : '' }"><a class="page-link" href="${num }">${num }</a></li>
+					<c:forEach var="num" begin="${page.startPage}" end="${page.endPage }">
+			  		 <li class="page-item ${page.cri.pageNum == num ? 'active' : '' }"><a class="page-link" href="${num }">${num }</a></li>
 					</c:forEach>
 
-					<c:if test="${pageMaker.next }">
-			 		 <li class="page-item"><a class="page-link" href="${pageMaker.endPage +1 }">Next</a></li>
+					<c:if test="${page.next }">
+			 		 <li class="page-item"><a class="page-link" href="${page.endPage +1 }">Next</a></li>
 					</c:if>
 
 				</ul>
 				
 				<form id="actionForm" action="/freeBoard/list" method="get">
-					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
-					<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-					<input type="hidden" name="type" value="${pageMaker.cri.type }">
-					<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+					<input type="hidden" name="pageNum" value="${page.cri.pageNum }">
+					<input type="hidden" name="amount" value="${page.cri.amount }">
+					<input type="hidden" name="type" value="${page.cri.type }">
+					<input type="hidden" name="keyword" value="${page.cri.keyword }">
 				</form>
 			</div>
 
@@ -198,7 +198,16 @@
 					actionForm.append("<input type='hidden' name='bno' value ='"+$(this).attr("href")+"'>");
 					actionForm.attr("action", "/ruleBoard/get");
 					actionForm.submit();
-				})
+				});
+				
+				var searchForm = $("searchForm");
+				
+				$("#searchForm button").on("click" function(e){
+					searchForm.find("input[name='pageNum']").val(1);
+					e.preventDefault();
+					
+					searchForm.submit();
+				});
 			});
 </script>
 

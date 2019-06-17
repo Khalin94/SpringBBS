@@ -2,6 +2,7 @@ package org.community.mapper;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.DevBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,7 +23,7 @@ public class DevBoardMapperTests {
 	private void setDevBoardMapper(DevBoardMapper mapper) {
 		this.mapper = mapper;
 	}
-	
+/*	
 	@Test
 	public void testRead() {
 		log.info(mapper.read(1l));
@@ -55,10 +56,13 @@ public class DevBoardMapperTests {
 
 		log.info(mapper.delete(1l) == 1);
 	}
-	
+*/	
 	@Test
 	public void testList() {
-		List<DevBoardVO> list = mapper.list();
+		Criteria cri = new Criteria();
+		cri.setKeyword("register");
+		cri.setType("T");
+		List<DevBoardVO> list = mapper.list(cri);
 		
 		list.forEach(obj -> log.info(obj));
 	}

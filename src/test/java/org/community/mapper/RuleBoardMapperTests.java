@@ -2,6 +2,7 @@ package org.community.mapper;
 
 import java.util.List;
 
+import org.community.domain.Criteria;
 import org.community.domain.RuleBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +28,8 @@ public class RuleBoardMapperTests {
 	
 	@Test
 	public void testList() {
-		List<RuleBoardVO> list  = mapper.list();
+		Criteria cri = new Criteria();
+		List<RuleBoardVO> list  = mapper.list(cri);
 		
 		list.forEach(el -> log.info(el));
 	}
