@@ -11,10 +11,12 @@ public interface FreeReplyService {
 	
 	public FreeReplyVO get(Long rno);
 	
-	public int modify(FreeReplyVO vo);
+	public int modify(FreeReplyVO vo);	
 	
 	public int remove(Long rno);
 	
 	public List<FreeReplyVO> getList(Criteria cri, Long bno);
+	
+//	public ReplyPageDTO getListPage(Criteria cri, Long bno);
 
 }

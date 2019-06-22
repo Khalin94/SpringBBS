@@ -64,7 +64,7 @@ public class FreeReplyMapperTests {
 	
 	@Test
 	public void listTest() {
-		Criteria cri = new Criteria();
+		Criteria cri = new Criteria(1, 10);
 		List<FreeReplyVO> replyList = mapper.getList(cri, 4141l);
 		
 		replyList.forEach(reply -> log.info(reply));

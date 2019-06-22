@@ -202,7 +202,7 @@
 				
 				var searchForm = $("searchForm");
 				
-				$("#searchForm button").on("click" function(e){
+				$("#searchForm button").on("click", function(e){
 					searchForm.find("input[name='pageNum']").val(1);
 					e.preventDefault();
 					

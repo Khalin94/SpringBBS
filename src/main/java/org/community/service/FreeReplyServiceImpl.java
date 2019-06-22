@@ -54,6 +54,14 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		
 		return mapper.getList(cri, bno);
 	}
+
+/*
+	@Override
+	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
+		return new ReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
+	}
+*/	
+	
 	
 	
 }

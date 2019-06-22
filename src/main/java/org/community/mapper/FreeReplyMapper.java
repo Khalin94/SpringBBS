@@ -23,4 +23,7 @@ public interface FreeReplyMapper {
 	public int update(FreeReplyVO vo);
 	
 	public List<FreeReplyVO> getList(@Param("cri") Criteria cri, @Param("bno") long bno); 
+	
+	@Select("select count(rno) from tbl_freeReply where bno = #{bno}")
+	public int getCount(Long bno);
 }
