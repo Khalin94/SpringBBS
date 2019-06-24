@@ -23,5 +23,8 @@ public interface JobsReplyMapper {
 	public int delete(Long rno);
 	
 	public List<JobsReplyVO> getList(@Param("cri") Criteria cri, @Param("bno")Long bno);
+	
+	@Select("select count(rno) from tbl_jobsReply where bno = #{bno}")
+	public int getCount(Long bno);
 
 }

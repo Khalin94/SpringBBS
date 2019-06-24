@@ -1,9 +1,8 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
 import org.community.domain.FreeReplyVO;
+import org.community.domain.ReplyPageDTO;
 
 public interface FreeReplyService {
 	
@@ -15,8 +14,8 @@ public interface FreeReplyService {
 	
 	public int remove(Long rno);
 	
-	public List<FreeReplyVO> getList(Criteria cri, Long bno);
+//	public List<FreeReplyVO> getList(Criteria cri, Long bno);
 	
-//	public ReplyPageDTO getListPage(Criteria cri, Long bno);
+	public ReplyPageDTO getListPage(Criteria cri, Long bno);
 
 }

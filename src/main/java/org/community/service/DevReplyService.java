@@ -1,8 +1,7 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.DevReplyPageDTO;
 import org.community.domain.DevReplyVO;
 
 public interface DevReplyService {
@@ -15,6 +14,6 @@ public interface DevReplyService {
 	
 	public int remove(Long rno);
 	
-	public List<DevReplyVO> getList(Criteria cri, Long bno);
+	public DevReplyPageDTO getList(Criteria cri, Long bno);
 
 }

@@ -1,8 +1,7 @@
 package org.community.controller;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.RuleReplyPageDTO;
 import org.community.domain.RuleReplyVO;
 import org.community.service.RuleReplyService;
 import org.springframework.http.HttpStatus;
@@ -53,10 +52,10 @@ public class RuleReplyController {
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<RuleReplyVO>> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page ){
+	public ResponseEntity<RuleReplyPageDTO> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page ){
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<List<RuleReplyVO>>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<RuleReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 	
 	

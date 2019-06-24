@@ -23,5 +23,8 @@ public interface RuleReplyMapper {
 	public int delete(Long rno);
 	
 	public List<RuleReplyVO> getList(@Param("cri") Criteria cri, @Param("bno")Long bno);
+	
+	@Select("select count(rno) from tbl_ruleReply where bno = #{bno}")
+	public int getCount(Long bno);
 
 }

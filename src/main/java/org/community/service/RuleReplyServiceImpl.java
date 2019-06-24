@@ -1,8 +1,7 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.RuleReplyPageDTO;
 import org.community.domain.RuleReplyVO;
 import org.community.mapper.RuleReplyMapper;
 import org.springframework.stereotype.Service;
@@ -37,8 +36,8 @@ public class RuleReplyServiceImpl implements RuleReplyService{
 	}
 
 	@Override
-	public List<RuleReplyVO> getList(Criteria cri, Long bno) {
-		return mapper.getList(cri, bno);
+	public RuleReplyPageDTO getList(Criteria cri, Long bno) {
+		return new RuleReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
 
 	

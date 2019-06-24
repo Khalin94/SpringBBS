@@ -1,8 +1,7 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.JobsReplyPageDTO;
 import org.community.domain.JobsReplyVO;
 import org.community.mapper.JobsReplyMapper;
 import org.slf4j.Logger;
@@ -48,9 +47,9 @@ public class JobsReplyServiceImpl implements JobsReplyService{
 	}
 
 	@Override
-	public List<JobsReplyVO> getList(Criteria cri, Long bno) {
+	public JobsReplyPageDTO getList(Criteria cri, Long bno) {
 		log.info("bno : " + bno);
-		return mapper.getList(cri, bno);
+		return new JobsReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
 	
 

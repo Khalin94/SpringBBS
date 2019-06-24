@@ -1,9 +1,8 @@
 package org.community.controller;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
 import org.community.domain.FreeReplyVO;
+import org.community.domain.ReplyPageDTO;
 import org.community.service.FreeReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,10 +46,10 @@ public class FreeReplyController {
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<FreeReplyVO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<List<FreeReplyVO>>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(service.getListPage(cri, bno), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})

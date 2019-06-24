@@ -10,9 +10,16 @@
 	</insert>
 	
 	<select id="getList" resultType="org.community.domain.DevReplyVO">
+	<![CDATA[
 		select rno, bno, reply, replyer, replyDate, updateDate
+		from 
+		(select /*+INDEX(tbl_devReply idx_devReply)*/
+		rownum rn, rno,bno, reply, replyer, replyDate, updateDate
 		from tbl_devReply
 		where bno = #{bno}
-		order by rno asc	
+		and rno > 0
+		and rownum <= #{cri.pageNum} * #{cri.amount}
+		) where rn > (#{cri.pageNum} - 1) * #{cri.amount}
+	]]>
 	</select>
 </mapper>

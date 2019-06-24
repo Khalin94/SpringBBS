@@ -1,8 +1,7 @@
 package org.community.controller;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.JobsReplyPageDTO;
 import org.community.domain.JobsReplyVO;
 import org.community.service.JobsReplyService;
 import org.slf4j.Logger;
@@ -64,11 +63,11 @@ public class JobsReplyController {
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<JobsReplyVO>> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page){
+	public ResponseEntity<JobsReplyPageDTO> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page){
 		Criteria cri = new Criteria(page, 10);
 		log.info("bno : " + bno);
 		log.info("page : " + page);
-		return new ResponseEntity<List<JobsReplyVO>>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<JobsReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 
 }

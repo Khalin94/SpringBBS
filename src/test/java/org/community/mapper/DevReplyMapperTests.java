@@ -57,7 +57,7 @@ public class DevReplyMapperTests {
 */	
 	@Test
 	public void testGetList() {
-		Criteria cri = new Criteria();
+		Criteria cri = new Criteria(1, 10);
 		
 		List<DevReplyVO> list = mapper.getList(cri, 24l);
 		

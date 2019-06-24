@@ -1,8 +1,7 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.DevReplyPageDTO;
 import org.community.domain.DevReplyVO;
 import org.community.mapper.DevReplyMapper;
 import org.slf4j.Logger;
@@ -52,11 +51,9 @@ public class DevReplyServiceImpl implements DevReplyService{
 	}
 
 	@Override
-	public List<DevReplyVO> getList(Criteria cri, Long bno) {
+	public DevReplyPageDTO getList(Criteria cri, Long bno) {
 		logger.info("DevReply bno : "+ bno);
 		
-		return mapper.getList(cri, bno);
+		return new DevReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
-	
-	
 }

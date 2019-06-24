@@ -1,8 +1,7 @@
 package org.community.controller;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
+import org.community.domain.DevReplyPageDTO;
 import org.community.domain.DevReplyVO;
 import org.community.service.DevReplyService;
 import org.slf4j.Logger;
@@ -68,10 +67,10 @@ public class DevReplyController {
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<List<DevReplyVO>> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
+	public ResponseEntity<DevReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<List<DevReplyVO>>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<DevReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 		
 	}

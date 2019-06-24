@@ -24,4 +24,7 @@ public interface DevReplyMapper {
 	public int delete(Long rno);
 	
 	public List<DevReplyVO> getList(@Param("cri") Criteria cri, @Param("bno") Long bno);
+	
+	@Select("select count(rno) from tbl_devReply where bno = #{bno}")
+	public int getCount(Long bno);
 }

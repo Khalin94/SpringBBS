@@ -30,7 +30,7 @@ var replyService = (function(){
 		$.getJSON("/devReplies/pages/"+bno+"/"+page+".json",
 		function(data){
 			if(callback){
-				callback(data);
+				callback(data.replyCtn, data.list);
 			}
 		}).fail(function(xhr, status, err){
 			if(error){

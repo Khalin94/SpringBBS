@@ -1,9 +1,8 @@
 package org.community.service;
 
-import java.util.List;
-
 import org.community.domain.Criteria;
 import org.community.domain.FreeReplyVO;
+import org.community.domain.ReplyPageDTO;
 import org.community.mapper.FreeReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,20 +46,20 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		
 		return mapper.delete(rno);
 	}
-
+/*
 	@Override
 	public List<FreeReplyVO> getList(Criteria cri, Long bno) {
 //		log.info("FreeBoard bno : " + bno);
 		
 		return mapper.getList(cri, bno);
 	}
+*/
 
-/*
 	@Override
 	public ReplyPageDTO getListPage(Criteria cri, Long bno) {
 		return new ReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
-*/	
+
 	
 	
 	
