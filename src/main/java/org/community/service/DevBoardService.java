@@ -3,6 +3,7 @@ package org.community.service;
 import java.util.List;
 
 import org.community.domain.Criteria;
+import org.community.domain.DevBoardAttachVO;
 import org.community.domain.DevBoardVO;
 
 public interface DevBoardService {
@@ -18,4 +19,6 @@ public interface DevBoardService {
 	public boolean remove(Long bno);
 
 	public int getTotal(Criteria cri);
+	
+	public List<DevBoardAttachVO> getAttachList(Long bno);
 }

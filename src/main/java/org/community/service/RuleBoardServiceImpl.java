@@ -3,10 +3,13 @@ package org.community.service;
 import java.util.List;
 
 import org.community.domain.Criteria;
+import org.community.domain.RuleBoardAttachVO;
 import org.community.domain.RuleBoardVO;
+import org.community.mapper.RuleBoardAttachMapper;
 import org.community.mapper.RuleBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class RuleBoardServiceImpl implements RuleBoardService{
@@ -18,6 +21,12 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 		this.mapper = mapper;
 	}
 	
+	private RuleBoardAttachMapper attachMapper;
+	
+	@Autowired
+	private void setRuleBoardAttachMapper(RuleBoardAttachMapper attachMapper) {
+		this.attachMapper = attachMapper;
+	}
 	@Override
 	public RuleBoardVO get(Long bno) {
 		System.out.println("bno : " + bno);
@@ -29,18 +38,42 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 			return mapper.list(cri);
 	}
 
+	@Transactional
 	@Override
 	public void register(RuleBoardVO vo) {
 			mapper.insert(vo);
+			
+			if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
+				return;
+			}
+			
+			vo.getAttachList().forEach(attach -> {
+				attach.setBno(vo.getBno());
+				attachMapper.insert(attach);
+			});
 	}
 
 	@Override
+	@Transactional
 	public boolean modify(RuleBoardVO vo) {
-		return mapper.update(vo) == 1;
+		attachMapper.deleteAll(vo.getBno());
+		
+		boolean modifyResult = mapper.update(vo) == 1;
+		
+		if(modifyResult && vo.getAttachList().size() > 0) {
+			vo.getAttachList().forEach(attach ->{
+				attach.setBno(vo.getBno());
+				attachMapper.insert(attach);
+			});
+		}
+		
+		return modifyResult;
 	}
 
+	@Transactional
 	@Override
 	public boolean remove(Long bno) {
+		attachMapper.deleteAll(bno);
 		return mapper.delete(bno) == 1;
 	}
 
@@ -48,5 +81,11 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 	public int getTotal(Criteria cri) {
 		return mapper.getTotal(cri);
 	}
+
+	@Override
+	public List<RuleBoardAttachVO> getAttachList(Long bno) {
+		return attachMapper.findByBno(bno);
+	}
+	
 	
 }

@@ -15,51 +15,132 @@
 		<h6 class="m-0 font-weight-bold text-primary">게시글</h6>
 	</div>
 	<div class="card-body">
-			<div class="form-group">
-				<label>#</label> <input class="form-control" name="bno" value='<c:out value="${board.bno }" />' readonly="readonly">
-			</div>
-			<div class="form-group">
-				<label>제목</label> <input class="form-control" name="title" value="<c:out value='${board.title }' />"	readonly="readonly">
-			</div>	
-			
-			<div class="form-group">
-				<label>내용</label> <textarea class="form-control" name="content" rows="5" readonly="readonly"><c:out value='${board.content }' /></textarea>
-				 
-			</div>
-			
-			<div class="form-group">
-				<label>작성자</label>	<input class="form-control" name="writer" value="<c:out value='${board.writer }' />" readonly="readonly">
-			</div>
-			
-			<button data-oper="modify" class="btn btn-light">수정 하기</button>
-			<button data-oper="list" class="btn btn-success">목록</button>
-			
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="card card-default">
-						<div class="card-heading">
-							<i class="fa fa-comments fa-fw"></i>Reply
-							<button id="addReplyBtn" class="btn btn-primary btn-sm float-right">댓글 달기</button>
-						</div>	
-						
-						<div class="card-body">
-							<ul class="chat">
+		<div class="form-group">
+			<label>#</label> <input class="form-control" name="bno"
+				value='<c:out value="${board.bno }" />' readonly="readonly">
+		</div>
+		<div class="form-group">
+			<label>제목</label> <input class="form-control" name="title"
+				value="<c:out value='${board.title }' />" readonly="readonly">
+		</div>
+
+		<div class="form-group">
+			<label>내용</label>
+			<textarea class="form-control" name="content" rows="5"
+				readonly="readonly"><c:out value='${board.content }' /></textarea>
+
+		</div>
+
+		<div class="form-group">
+			<label>작성자</label> <input class="form-control" name="writer"
+				value="<c:out value='${board.writer }' />" readonly="readonly">
+		</div>
+
+		<button data-oper="modify" class="btn btn-light">수정 하기</button>
+		<button data-oper="list" class="btn btn-success">목록</button>
+
+		<div class="bigPictureWrapper">
+			<div class="bigPicture"></div>
+		</div>
+
+		<style>
+.uploadResult {
+	width: 100%;
+	background-color: gray;
+}
+
+.uploadResult ul {
+	display: flex;
+	flex-flow: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.uploadResult ul li {
+	list-style: none;
+	padding: 10px;
+	align-content: center;
+	text-align: center;
+}
+
+.uploadResult ul li img {
+	width: 100px;
+}
+
+.uploadResult ul li span {
+	color: white;
+}
+
+.bigPictureWrapper {
+	position: absolute;
+	display: none;
+	justify-content: center;
+	align-item: center;
+	top: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: gray;
+	z-index: 100;
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.bigPicture {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bigPicture img {
+	width: 600px;
+}
+</style>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card card-default">
+					<div class="card-header">첨부 파일</div>
+
+					<div class="card-body">
+						<div class="uploadResult">
+							<ul>
 
 							</ul>
 						</div>
-						<div class="card-footer">
-						</div>
-					</div>	
-				</div>	
+					</div>
+				</div>
 			</div>
-			
-			<form id="operForm" action="/jobsBoard/modify" method="get">
-				<input type="hidden" id="bno" name="bno" value="<c:out value='${board.bno }'/>">
-				<input type="hidden" id="pageNum" name="pageNum" value="<c:out value='${cri.pageNum }' />">
-				<input type="hidden" id="amount" name="amount" value="<c:out value='${cri.amount }' />">
-				<input type="hidden" name="type" value="${cri.type }">
-				<input type="hidden" name="keyword" value="${cri.keyword }">
-			</form>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card card-default">
+					<div class="card-heading">
+						<i class="fa fa-comments fa-fw"></i>Reply
+						<button id="addReplyBtn"
+							class="btn btn-primary btn-sm float-right">댓글 달기</button>
+					</div>
+
+					<div class="card-body">
+						<ul class="chat">
+
+						</ul>
+					</div>
+					<div class="card-footer"></div>
+				</div>
+			</div>
+		</div>
+
+		<form id="operForm" action="/jobsBoard/modify" method="get">
+			<input type="hidden" id="bno" name="bno"
+				value="<c:out value='${board.bno }'/>"> <input type="hidden"
+				id="pageNum" name="pageNum"
+				value="<c:out value='${cri.pageNum }' />"> <input
+				type="hidden" id="amount" name="amount"
+				value="<c:out value='${cri.amount }' />"> <input
+				type="hidden" name="type" value="${cri.type }"> <input
+				type="hidden" name="keyword" value="${cri.keyword }">
+		</form>
 	</div>
 </div>
 
@@ -72,32 +153,89 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id = "myModalLabel">Reply Modal</h4>
+				<h4 class="modal-title" id="myModalLabel">Reply Modal</h4>
 			</div>
 			<div class="modal-body">
 				<div class="form-group">
-					<label>Reply</label>	
-					<input class="form-control" name="reply" value = "new reply">
-				</div>	
-				<div class="form-group">
-					<label>Replyer</label>	
-					<input class="form-control" name = "replyer" value= "replyer">
+					<label>Reply</label> <input class="form-control" name="reply"
+						value="new reply">
 				</div>
-				
 				<div class="form-group">
-					<label>Reply Date</label>
-					<input class="form-control" name = "replyDate" value = "">
+					<label>Replyer</label> <input class="form-control" name="replyer"
+						value="replyer">
+				</div>
+
+				<div class="form-group">
+					<label>Reply Date</label> <input class="form-control"
+						name="replyDate" value="">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button id = "modalModBtn" type="button" class="btn btn-warning">수정</button>
-				<button id= "modalRemoveBtn" type='button' class = "btn btn-danger">삭제</button>
-				<button id ="modalRegisterBtn" type="button" class="btn btn-primary">등록</button>
-				<button id= "modalCloseBtn" type="button" class="btn">닫기</button>
+				<button id="modalModBtn" type="button" class="btn btn-warning">수정</button>
+				<button id="modalRemoveBtn" type='button' class="btn btn-danger">삭제</button>
+				<button id="modalRegisterBtn" type="button" class="btn btn-primary">등록</button>
+				<button id="modalCloseBtn" type="button" class="btn">닫기</button>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	(function(){
+		var bno = "<c:out value='${board.bno}' />";
+		
+		$.getJSON("/jobsBoard/getAttachList", {bno:bno}, function(arr){
+			str = "";	
+			$(arr).each(function(i, attach){
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+ attach.uuid+"_"+attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'><div>";
+					str += "<img src='/display?fileName="+fileCallPath+"'>";
+					str += "</div>";
+					str += "</li>";
+				}else{
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'<div>";
+					str += "<span>"+attach.fileName+"</span>";
+					str += "<img src='/resources/img/attach.png'>";
+					str += "</div>";
+					str += "</li>";
+				}
+			});
+			
+			$(".uploadResult ul").html(str);
+			
+		});
+	})();
+	
+	$(".uploadResult").on("click", "li", function(e){
+		var liObj = $(this);
+		
+		var path = encodeURIComponent(liObj.data("path")+"/"+liObj.data("uuid")+"_"+liObj.data("filename"));
+		
+		if(liObj.data("type")){
+			showImage(path.replace(new RegExp(/\\/g),"/"));
+		}else{
+			self.location = "/download?fileName="+path;
+		}
+	});
+	
+	function showImage(fileCallPath){
+		
+		$(".bigPictureWrapper").css("display", "flex").show();
+		
+		$(".bigPicture").html("<img src='/display?fileName="+fileCallPath+"'>").animate({width : '100%', height : '100%'}, 1000);
+	}
+	
+	$(".bigPictureWrapper").on("click", function(e){
+		$(".bigPicture").animate({width: '0%', height : '0%'}, 1000);
+		setTimeout(function(){
+			$('.bigPictureWrapper').hide();
+		}, 1000);
+	});
+});
+</script>
 
 
 <script type="text/javascript" src="/resources/js/jobsReply.js"></script>

@@ -23,10 +23,10 @@
 
 <select id ="list" resultType = "org.community.domain.JobsBoardVO">
 <![CDATA[
-		select bno, title, content, writer, regdate, updatedate, hits
+		select bno, title, content, writer, regdate, updatedate, hits, replyCnt
 			from
 			(select /*+INDEX_DESC(tbl_jobsboard pk_jobsboard) */
-			rownum rn, bno, title, content, writer, regdate, updatedate, hits 
+			rownum rn, bno, title, content, writer, regdate, updatedate, hits, replyCnt
 			from tbl_jobsBoard
 			where
 		]]>	

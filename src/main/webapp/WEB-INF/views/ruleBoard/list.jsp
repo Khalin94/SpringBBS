@@ -70,7 +70,9 @@
 					<tr>
 						<td><c:out value="${board.bno }" /></td>
 						<td><a class="pageMove" href="<c:out value='${board.bno }' />">
-						<c:out value="${board.title }" /></a></td>
+						<c:out value="${board.title }" />
+						<b>[  <c:out value="${board.replyCnt }" />  ]</b>	
+						</a></td>
 			<!--  		<td><c:out value="${board.content }" /></td> -->
 						<td><c:out value="${board.writer }" /></td>
 						<td><fmt:formatDate value="${board.regDate }"
@@ -170,9 +172,7 @@
 						return;
 					}
 
-					if(result == "successRemove"){
-						$(".modal-body").html("삭제되었습니다.");
-					}else if (parseInt(result) > 0) {
+					if (parseInt(result) > 0) {
 						$(".modal-body").html(
 								"게시글 " + parseInt(result) + "번이 등록되었습니다.");
 					}

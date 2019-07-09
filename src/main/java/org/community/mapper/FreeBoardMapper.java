@@ -3,7 +3,9 @@ package org.community.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.community.domain.Criteria;
 import org.community.domain.FreeBoardVO;
 
@@ -24,5 +26,8 @@ public interface FreeBoardMapper {
 	
 	@Select("select count(*) from tbl_freeboard where bno > 0")
 	public int getTotalCount(Criteria cri);
+	
+	@Update("update tbl_freeBoard set replycnt = replycnt + #{amount} where bno = #{bno}")
+	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 
 }

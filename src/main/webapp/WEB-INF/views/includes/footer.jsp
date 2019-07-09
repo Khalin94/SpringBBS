@@ -34,12 +34,13 @@
   <script src="/resources/startbootstrap-sb-admin-2-gh-pages/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/chart.js/Chart.min.js"></script>
+<!--  <script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/chart.js/Chart.min.js"></script> -->
 
   <!-- Page level custom scripts -->
+  <!-- 
   <script src="/resources/startbootstrap-sb-admin-2-gh-pages/js/demo/chart-area-demo.js"></script>
   <script src="/resources/startbootstrap-sb-admin-2-gh-pages/js/demo/chart-pie-demo.js"></script>
-  
+ --> 
 </body>
  
 </html> 

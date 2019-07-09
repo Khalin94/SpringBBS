@@ -26,7 +26,7 @@
 	<!-- DataTales Example -->
 
 
-	<div class="card shadow mb-4 mr-3 ml-4">
+	<div class="card shadow mb-4 mr-3 ml-4 col-5">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">이용 수칙</h6>
 		</div>
@@ -58,7 +58,7 @@
 		</div>
 	</div>
 
-	<div class="card shadow mb-4 mr-3 ml-4">
+	<div class="card shadow mb-4 mr-3 ml-4 col-5">
 		<div class="card-header py-3">
 			<h6 class="m-0 font-weight-bold text-primary">자유 게시판</h6>
 		</div>
@@ -92,9 +92,9 @@
 
 	<div class="w-100"></div>
 
-	<div class="card shadow mb-4 mr-3 ml-4">
+	<div class="card shadow mb-4 mr-3 ml-4 col-5">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">third bbs</h6>
+			<h6 class="m-0 font-weight-bold text-primary">개발자 게시판</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -102,40 +102,32 @@
 					width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>age</th>
-							<th>location</th>
-							<th>update</th>
+							<th>#</th>
+							<th>제목</th>
+							<th>작성자</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>testUser</th>
-							<th>20</th>
-							<th>seoul</th>
-							<th>2019/06/05</th>
-						</tr>
-						<tr>
-							<th>testUser</th>
-							<th>20</th>
-							<th>seoul</th>
-							<th>2019/06/05</th>
-						</tr>
-						<tr>
-							<th>testUser</th>
-							<th>20</th>
-							<th>seoul</th>
-							<th>2019/06/05</th>
-						</tr>
+						<c:forEach items="${devList }" var="board" begin="0" end="4">
+							<tr>
+								<td> <c:out value="${board.bno }"></c:out></td>							
+								<td><a href="/devBoard/get?bno=<c:out value='${board.bno }' />">
+								<c:out value="${board.title }" />
+								</a>
+								</td>
+								<td> <c:out value="${board.writer }"></c:out> </td>
+							</tr>	
+
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 
-	<div class="card shadow mb-4 ml-4">
+	<div class="card shadow mb-4 ml-4 col-5">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">fourth bbs</h6>
+			<h6 class="m-0 font-weight-bold text-primary">구인 구직</h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -143,19 +135,23 @@
 					width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>Name</th>
-							<th>age</th>
-							<th>location</th>
-							<th>update</th>
+							<th>#</th>
+							<th>제목</th>
+							<th>작성자</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<th>testUser</th>
-							<th>20</th>
-							<th>seoul</th>
-							<th>2019/06/05</th>
-						</tr>
+						<c:forEach items="${jobsList }" var="board" begin="0" end="4">
+							<tr>
+								<td> <c:out value="${board.bno }"></c:out> </td>
+								<td><a href="/jobsBoard/get?bno="<c:out value="${board.bno }" />">
+									<c:out value="${board.title }"></c:out>	
+								</a>
+								</td>
+								<td><c:out value="${board.writer }"></c:out>
+								</td>
+							</tr>	
+						</c:forEach>	
 					</tbody>
 				</table>
 			</div>

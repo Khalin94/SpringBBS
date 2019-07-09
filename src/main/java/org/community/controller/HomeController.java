@@ -1,7 +1,9 @@
 package org.community.controller;
 
 import org.community.domain.Criteria;
+import org.community.service.DevBoardService;
 import org.community.service.FreeBoardService;
+import org.community.service.JobsBoardService;
 import org.community.service.RuleBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ public class HomeController {
 	
 	private FreeBoardService freeService;
 	private RuleBoardService ruleService;
+	private DevBoardService devService;
+	private JobsBoardService jobsService;
 	
 	@Autowired
 	private void setFreeBoardService(FreeBoardService freeService) {
@@ -45,12 +49,24 @@ public class HomeController {
 	private void setRuleBoardService(RuleBoardService ruleService) {
 		this.ruleService = ruleService;
 	}
+	
+	@Autowired
+	private void setDevBoardService(DevBoardService devService) {
+		this.devService = devService;
+	}
+	
+	@Autowired
+	private void setJobsBoardService(JobsBoardService jobsService) {
+		this.jobsService = jobsService;
+	}
 
 	@GetMapping("/")
 	public String index(Criteria cri, Model model) {
 		
 		model.addAttribute("freeList", freeService.getAll(cri));
 		model.addAttribute("ruleList", ruleService.getAll(cri));
+		model.addAttribute("devList", devService.getAll(cri));
+		model.addAttribute("jobsList", jobsService.getAll(cri));
 
 		return "index";
 	}

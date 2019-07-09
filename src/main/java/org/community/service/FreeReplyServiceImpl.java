@@ -3,14 +3,19 @@ package org.community.service;
 import org.community.domain.Criteria;
 import org.community.domain.FreeReplyVO;
 import org.community.domain.ReplyPageDTO;
+import org.community.mapper.FreeBoardMapper;
 import org.community.mapper.FreeReplyMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 public class FreeReplyServiceImpl implements FreeReplyService {
 	
-//	Logger log;
+	Logger log = LoggerFactory.getLogger(FreeReplyServiceImpl.class);
 
 	private FreeReplyMapper mapper;
 	
@@ -18,11 +23,22 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 	private void setFreeReplyMapper(FreeReplyMapper mapper) {
 		this.mapper = mapper;
 	}
+	
+	private FreeBoardMapper boardMapper;
+	
+	@Autowired
+	private void setFreeBoardMapper(FreeBoardMapper boardMapper) {
+		this.boardMapper = boardMapper;
+	}
 
+	@Transactional
 	@Override
 	public int register(FreeReplyVO vo) {
-//		log.info("register : " + vo);
 		
+		log.info("register : "+vo);
+		
+		boardMapper.updateReplyCnt(vo.getBno(), 1);
+
 		return mapper.insert(vo);
 	}
 
@@ -40,9 +56,14 @@ public class FreeReplyServiceImpl implements FreeReplyService {
 		return mapper.update(vo);
 	}
 
+	@Transactional
 	@Override
 	public int remove(Long rno) {
-//		log.info("remove : " + rno);
+		log.info("remove : " + rno);
+		
+		FreeReplyVO vo = mapper.read(rno);
+		
+		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		
 		return mapper.delete(rno);
 	}

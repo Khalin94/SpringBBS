@@ -18,9 +18,9 @@
 </update>
 
 <select id="list" resultType="org.community.domain.RuleBoardVO">
-	select bno, title, writer, regDate, hits 
+	select bno, title, writer, regDate, hits, replyCnt 
 	from (select /*+ INDEX_DESC(tbl_ruleBoard pk_ruleBoard) */
-	 rownum rn, bno, title, content, writer, regDate, hits from tbl_ruleBoard
+	 rownum rn, bno, title, content, writer, regDate, hits, replyCnt from tbl_ruleBoard
 	 where 
 		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
 			<foreach collection="typeArr" item="type">

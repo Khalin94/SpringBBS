@@ -50,7 +50,210 @@
 				<button type="submit" data-oper="list" class="btn btn-outline-dark">목록</button>
 		</form>
 	</div>
+	
+	<div class="bigPictureWrapper">
+		<div class="bigPicture">
+		
+		</div>	
+	</div>
+	
+	<style>
+				.uploadResult{
+					width : 100%;
+					background-color : gray;	
+				}	
+				
+				.uploadResult ul{
+					display : flex;
+					flex-flow : row;
+					justify-content : center;
+					align-items : center;	
+				}
+				
+				.uploadResult ul li{
+					list-style : none;
+					padding : 10px;
+					align-content :center;
+					text-align : center;	
+				}
+				
+				.uploadResult ul li img{
+					width : 100px;	
+				}
+				
+				.uploadResult ul li span{
+					color : white;	
+				}
+				
+				.bigPictureWrapper{
+					position : absolute;
+					display : none;
+					justify-content : center;
+					align-item : center;
+					top : 0%;
+					width : 100%;
+					height : 100%;
+					background-color : gray;
+					z-index : 100;
+					background : rgba(255,255,255, 0.5);
+				}
+				
+				.bigPicture{
+					position : relative;
+					display : flex;
+					justify-content : center;
+					align-items : center;
+				}
+				
+				.bigPicture img{
+					width : 600px;
+				}		
+	</style>
+	
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="card card-default">
+				<div class="card-header">
+				첨부 파일	
+				</div>	
+				
+				<div class="card-body">
+					<div class="form-group uploadDiv">
+						<input type="file" name="uploadFile" multiple="multiple">
+					</div>
+					<div class="uploadResult">
+						<ul>
+						</ul>	
+					</div>
+				</div>
+			</div>	
+		</div>	
+	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	(function(){
+		var bno = "<c:out value='${board.bno}' />";
+		
+		$.getJSON("/devBoard/getAttachList", {bno:bno}, function(arr){
+			var str = "";
+			
+			$(arr).each(function(i, attach){
+				if(attach.fileType){
+					var fileCallPath = encodeURIComponent(attach.uploadPath+"/s_"+attach.uuid+"_"+attach.fileName);
+					
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-type='"+attach.fileType+"' data-filename='"+attach.fileName+"'>";
+					str += "<div>";
+					str += "<span>"+attach.fileName+"</span>";
+					str += "<button type='button' class='btn btn-warning btn-circle' data-file=\'"+fileCallPath+"\' data-type='image'><i class='fa fa-times'></i></button><br>";
+					str += "<img src='/display?fileName="+fileCallPath+"'>";
+					str += "</div></li>";
+				}else{
+					str += "<li data-path='"+attach.uploadPath+"' data-uuid='"+attach.uuid+"' data-filename='"+attach.fileName+"' data-type='"+attach.fileType+"'>";
+					str += "<div>";
+					str += "<span>"+attach.fileName+"</span>";
+					str += "<button type='button' class='btn btn-warning btn-circle' data-file=\'"+fileCallPath+"\' data-type='file'><i class='fa fa-times'></i></button><br>";
+					str += "<img src='/resources/img/attach.png'>";
+					str += "</div></li>";
+				}
+			});
+			$(".uploadResult ul").html(str);
+		});
+	})();
+	
+	$(".uploadResult").on("click", "button", function(e){
+		if(confirm("지우시겠습니까?")){
+			var targetLi = $(this).closest("li");
+			
+			targetLi.remove();
+		}
+	});
+	
+	var regEx = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+	var maxSize = 5242880;
+	
+	function checkExtension(fileName, fileSize){
+		if(fileSize >= maxSize){
+			alert("파일 크기 초과");
+			return false;
+		}
+		
+		if(regEx.test(fileName)){
+			alert("해당 확장자의 파일을 업로드 할 수 없습니다.");
+			return false;
+		}
+		return true;
+	}
+	
+	$("input[type='file']").change(function(e){
+		var formData = new FormData();
+		
+		var inputFile = $("input[name='uploadFile']");
+		
+		var files = inputFile[0].files;
+		
+		for(var i=0; i<files.length; i++){
+			if(!checkExtension(files[i].name, files[i].size)){
+				return false;
+			}
+			
+			formData.append("uploadFile", files[i]);
+		}
+		
+		$.ajax({
+			url : "/uploadAjaxAction",
+			processData : false,
+			contentType : false,
+			data : formData,
+			type : 'POST',
+			dataType : 'json',
+			success : function(result){
+				console.log(result);
+				
+				showUploadResult(result);
+			}
+		});
+	});
+	
+	function showUploadResult(uploadResultArr){
+		if(!uploadResultArr || uploadResultArr.length == 0){
+			return;
+		}
+		
+		var uploadUl = $(".uploadResult ul");
+		
+		var str = "";
+		
+		$(uploadResultArr).each(function(i, obj){
+			if(obj.fileType){
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);	
+				console.log("fileCallPath : "+fileCallPath);
+				str += "<li data-path='"+obj.uploadPath+"' data-filename='"+obj.fileName+"' data-uuid='"+obj.uuid+"' data-type='"+obj.fileType+"'";
+				str += "><div>";
+				str += "<span>"+obj.fileName+"</span>";
+				str += "<button type='button' data-file=\'"+obj.fileCallpath+"\' data-Type='image' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src='/display?fileName="+fileCallPath+"'>";
+				str += "</div></li>";
+			}else{
+				var fileCallPath = encodeURIComponent(obj.uploadPath+"/"+obj.uuid+"/"+obj.fileName);	
+				console.log("fileCallPath : "+fileCallPath);	
+				var fileLink = fileCallPath.replace(new RegExp(/\\/g), "/");
+				console.log("fileLink : "+fileLink);	
+				str += "<li data-path='"+obj.uploadPath+"' data-uuid='"+ obj.uuid+"' data-filename='"+obj.fileName+"' data-type='"+obj.fileType+"'";
+				str += "><div>";
+				str += "<span>"+obj.fileName+"</span>";
+				str += "<button type='button' data-file=\'"+obj.fileCallPath+"\' data-Type='file' class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+				str += "<img src='/resources/img/attach.png'>";
+				str += "</div></li>";
+			}
+		});
+
+		uploadUl.append(str);
+	}	
+});
+</script>
+
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -77,6 +280,18 @@ $(document).ready(function(){
 			formObj.append(amount);
 			formObj.append(type);
 			formObj.append(keyword);
+		}else if(operation ==='modify'){
+			var str ="";
+			
+			$(".uploadResult ul li").each(function(i, obj){
+				var jobj = $(obj);
+				
+				str += "<input type='hidden' name='attachList["+i+"].fileName' value = '"+jobj.data("filename")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].uuid' value = '"+jobj.data("uuid")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].uploadPath' value = '"+jobj.data("path")+"'>";
+				str += "<input type='hidden' name='attachList["+i+"].fileType' value = '"+jobj.data("type")+"'>";
+			});
+			formObj.append(str).submit();
 		}
 		
 		formObj.submit();

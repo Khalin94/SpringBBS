@@ -24,10 +24,10 @@
 
 <select id ="get" resultType = "org.community.domain.FreeBoardVO">
 	<![CDATA[
-		select bno, title, content, writer, regdate, updatedate, hits
+		select bno, title, content, writer, regdate, updatedate, hits, replyCnt
 			from
 			(select /*+INDEX_DESC(tbl_freeboard pk_freeboard) */
-			rownum rn, bno, title, content, writer, regdate, updatedate, hits
+			rownum rn, bno, title, content, writer, regdate, updatedate, hits, replyCnt
 			from tbl_freeboard
 			where 
 		]]>	

@@ -1,6 +1,7 @@
 package org.community.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 
@@ -14,5 +15,9 @@ public class JobsBoardVO {
 	private Date regDate;
 	private Date updateDate;
 	private Long hits;
+	
+	private int replyCnt;
+	
+	private List<JobsBoardAttachVO> attachList;
 
 }

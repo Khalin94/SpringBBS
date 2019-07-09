@@ -1,6 +1,7 @@
 package org.community.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Data;
 	
@@ -15,4 +16,7 @@ public class RuleBoardVO {
 	private Date updateDate;
 	private Long hits;
 
+	private int replyCnt;
+	
+	private List<RuleBoardAttachVO> attachList;
 }
