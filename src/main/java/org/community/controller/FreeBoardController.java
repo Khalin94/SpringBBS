@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,11 +46,13 @@ public class FreeBoardController {
 			model.addAttribute("pageMaker", new PageDTO(cri, service.total(cri)));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(FreeBoardVO vo, RedirectAttributes ra) {
 		log.info("===========================");
