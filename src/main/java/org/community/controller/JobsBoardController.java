@@ -6,11 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.JobsBoardAttachVO;
-import org.community.domain.JobsBoardVO;
 import org.community.domain.PageDTO;
-import org.community.service.JobsBoardService;
+import org.community.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +33,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class JobsBoardController {
 	
 	Logger log = LoggerFactory.getLogger(JobsBoardController.class);
-	private JobsBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setJobsBoardService(JobsBoardService service) {
-		this.service = service;
+	private void setJobsBoardService(BoardService jobsBoardService) {
+		this.service = jobsBoardService;
 	}
 	
 	@GetMapping({"/get", "/modify"})
@@ -59,7 +59,7 @@ public class JobsBoardController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public String register(JobsBoardVO vo, RedirectAttributes ra) {
+	public String register(BoardVO vo, RedirectAttributes ra) {
 		vo.setHits((long)0);
 
 		if(vo.getAttachList() != null) {
@@ -76,7 +76,7 @@ public class JobsBoardController {
 	
 	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
-	public String modify(@ModelAttribute("cri") Criteria cri, JobsBoardVO vo, RedirectAttributes ra) {
+	public String modify(@ModelAttribute("cri") Criteria cri, BoardVO vo, RedirectAttributes ra) {
 		log.info("===============================");
 		log.info("vo : " + vo.getAttachList());
 		if(service.modify(vo)) {
@@ -91,7 +91,7 @@ public class JobsBoardController {
 		return "redirect:/jobsBoard/list";
 	}
 	
-	private void deleteFiles(List<JobsBoardAttachVO> list) {
+	private void deleteFiles(List<AttachBoardVO> list) {
 		if(list == null || list.size() == 0) {
 			return;
 		}
@@ -116,7 +116,7 @@ public class JobsBoardController {
 	@PostMapping("/remove")
 	public String remove(@ModelAttribute("cri") Criteria cri,Long bno, RedirectAttributes ra, String writer) {
 		
-		List<JobsBoardAttachVO> list = service.getAttachList(bno);
+		List<AttachBoardVO> list = service.getAttachList(bno);
 
 		if(service.remove(bno)) { 
 			deleteFiles(list);
@@ -133,7 +133,7 @@ public class JobsBoardController {
 	
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<JobsBoardAttachVO>> getAttachList(Long bno){
-		return new ResponseEntity<List<JobsBoardAttachVO>>(service.getAttachList(bno), HttpStatus.OK);
+	public ResponseEntity<List<AttachBoardVO>> getAttachList(Long bno){
+		return new ResponseEntity<List<AttachBoardVO>>(service.getAttachList(bno), HttpStatus.OK);
 	}
 }

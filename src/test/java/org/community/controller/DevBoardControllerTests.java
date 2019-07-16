@@ -1,6 +1,5 @@
 package org.community.controller;
 
-import org.community.service.DevBoardService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

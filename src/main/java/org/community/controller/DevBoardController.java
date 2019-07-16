@@ -6,15 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.DevBoardAttachVO;
-import org.community.domain.DevBoardVO;
 import org.community.domain.PageDTO;
-import org.community.service.DevBoardService;
+import org.community.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,11 +33,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class DevBoardController {
 	
 	Logger log = LoggerFactory.getLogger(DevBoardController.class);
-	private DevBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setDevBoardService(DevBoardService service) {
-		this.service = service;
+	private void setDevBoardService(BoardService devBoardService) {
+		this.service = devBoardService;
 	}
 	
 	@GetMapping({"/get","/modify"})
@@ -60,7 +59,7 @@ public class DevBoardController {
 
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public String register(DevBoardVO vo, RedirectAttributes ra	) {
+	public String register(BoardVO vo, RedirectAttributes ra	) {
 		vo.setHits((long)0);
 		
 		log.info("register : " + vo);
@@ -75,14 +74,14 @@ public class DevBoardController {
 
 	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
-	public String modify(DevBoardVO vo,@ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String modify(BoardVO vo,@ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
 		if(service.modify(vo)) {
 			ra.addFlashAttribute("result", "success");
 		}
 			return "redirect:/devBoard/list" + cri.getLink();
 	}
 	
-	private void deleteFiles(List<DevBoardAttachVO> list) {
+	private void deleteFiles(List<AttachBoardVO> list) {
 		if(list == null || list.size() == 0) {
 			return;
 		}
@@ -108,7 +107,7 @@ public class DevBoardController {
 	@PostMapping("/remove")
 	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
-		List<DevBoardAttachVO> list = service.getAttachList(bno);
+		List<AttachBoardVO> list = service.getAttachList(bno);
 
 		if(service.remove(bno)) {
 			deleteFiles(list);
@@ -120,9 +119,9 @@ public class DevBoardController {
 	
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<DevBoardAttachVO>> getAttachList(Long bno){
+	public ResponseEntity<List<AttachBoardVO>> getAttachList(Long bno){
 		
-		return new ResponseEntity<List<DevBoardAttachVO>>(service.getAttachList(bno), HttpStatus.OK);
+		return new ResponseEntity<List<AttachBoardVO>>(service.getAttachList(bno), HttpStatus.OK);
 	}
 	
 	

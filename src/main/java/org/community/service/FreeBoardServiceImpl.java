@@ -2,20 +2,17 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.FreeBoardAttachVO;
-import org.community.domain.FreeBoardVO;
 import org.community.mapper.FreeBoardAttachMapper;
 import org.community.mapper.FreeBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.AllArgsConstructor;
-
-@Service
-@AllArgsConstructor
-public class FreeBoardServiceImpl implements FreeBoardService{
+@Service("freeBoardService")
+public class FreeBoardServiceImpl implements BoardService{
 	
 //	Logger log = LoggerFactory.getLogger(FreeBoardServiceImpl.class);
 
@@ -34,10 +31,10 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	@Transactional
 	@Override
-	public void register(FreeBoardVO vo) {
+	public void register(BoardVO vo) {
 //		log.info(vo.voPrint());
 		
-		System.out.println(vo.voPrint());
+//		System.out.println(vo.voPrint());
 		
 		mapper.insert(vo);
 		
@@ -54,14 +51,14 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public FreeBoardVO get(Long bno) {
+	public BoardVO get(Long bno) {
 		System.out.println(bno);
 		return mapper.read(bno);
 	}
 
 	@Transactional
 	@Override
-	public boolean modify(FreeBoardVO vo) {
+	public boolean modify(BoardVO vo) {
 		vo.setHits((long)0);
 		System.out.println(vo);
 		
@@ -82,7 +79,7 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	@Transactional
 	@Override
-	public boolean delete(Long bno) {
+	public boolean remove(Long bno) {
 		System.out.println(bno);
 		
 		attachMapper.deleteAll(bno);
@@ -91,17 +88,17 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 	}
 
 	@Override
-	public List<FreeBoardVO> getAll(Criteria cri) {
+	public List<BoardVO> getAll(Criteria cri) {
 		return mapper.get(cri);
 	}
 
 	@Override
-	public int total(Criteria cri) {
+	public int getTotal(Criteria cri) {
 		return mapper.getTotalCount(cri);
 	}
 
 	@Override
-	public List<FreeBoardAttachVO> getAttachList(Long bno) {
+	public List<AttachBoardVO> getAttachList(Long bno) {
 		System.out.println("attch List use bno : " + bno);
 		return attachMapper.findByBno(bno);
 	}

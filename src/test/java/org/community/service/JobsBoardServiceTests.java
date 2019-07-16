@@ -1,8 +1,7 @@
 package org.community.service;
 
-import org.community.domain.JobsBoardVO;
+import org.community.domain.BoardVO;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -12,11 +11,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class JobsBoardServiceTests {
 	
-	private JobsBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setJobsBoardService(JobsBoardService service) {
-		this.service = service;
+	private void setJobsBoardService(BoardService jobsBoardService) {
+		this.service = jobsBoardService;
 	}
 	
 	@Test
@@ -26,7 +25,7 @@ public class JobsBoardServiceTests {
 	
 	@Test
 	public void testRegister() {
-		JobsBoardVO vo = new JobsBoardVO();
+		BoardVO vo = new BoardVO();
 		
 		vo.setTitle("service title");
 		vo.setContent("service content");
@@ -39,7 +38,7 @@ public class JobsBoardServiceTests {
 	
 	@Test
 	public void testModify() {
-		JobsBoardVO vo = service.get(1l);
+		BoardVO vo = service.get(1l);
 		
 		vo.setTitle("modify test");
 		vo.setContent("asdf");

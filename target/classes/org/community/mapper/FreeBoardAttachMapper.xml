@@ -9,11 +9,11 @@ insert into tbl_freeAttach(uuid, uploadPath, fileName, fileType, bno)
 values(#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno})
 </insert> 
 
-<select id="findByBno" resultType="org.community.domain.FreeBoardAttachVO">
+<select id="findByBno" resultType="org.community.domain.AttachBoardVO">
 select * from tbl_freeAttach where bno = #{bno}
 </select>
   
-<select id="getOldFiles" resultType="org.community.domain.FreeBoardAttachVO">
+<select id="getOldFiles" resultType="org.community.domain.AttachBoardVO">
 select * from tbl_freeAttach where uploadPath = to_char(sysdate - 1, 'yyyy\mm\dd')
 </select>
 </mapper>

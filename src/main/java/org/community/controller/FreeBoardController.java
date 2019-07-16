@@ -4,15 +4,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.FreeBoardAttachVO;
-import org.community.domain.FreeBoardVO;
 import org.community.domain.PageDTO;
-import org.community.service.FreeBoardService;
+import org.community.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,17 +33,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/freeBoard/*")
 public class FreeBoardController {
 	Logger log = LoggerFactory.getLogger(FreeBoardController.class);
-	private FreeBoardService service;
+	private BoardService service;
 
 	@Autowired
-	private void setFreeBoardService(FreeBoardService service) {
-		this.service = service;
+	private void setFreeBoardService(BoardService freeBoardService) {
+		this.service = freeBoardService;
 	}
 	
 	@GetMapping("/list")
 	public void list(Criteria cri, Model model)  {
 			model.addAttribute("list", service.getAll(cri));
-			model.addAttribute("pageMaker", new PageDTO(cri, service.total(cri)));
+			model.addAttribute("pageMaker", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
 	@PreAuthorize("isAuthenticated()")
@@ -55,7 +54,7 @@ public class FreeBoardController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public String register(FreeBoardVO vo, RedirectAttributes ra) {
+	public String register(BoardVO vo, RedirectAttributes ra) {
 		log.info("===========================");
 		log.info("register : " + vo);
 		vo.setHits((long)0);
@@ -79,7 +78,7 @@ public class FreeBoardController {
 	
 	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
-	public String modify(FreeBoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String modify(BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
 		log.info("title : "+vo.getTitle() + " content : " + vo.getContent() + " writer : " + vo.getWriter()+" reply cnt : " +vo.getReplyCnt()+" bno : " +vo.getBno()+" hits : "+vo.getHits()+" AttachList : " +vo.getAttachList()+" regDate : " + vo.getRegDate()+" updateDate : " +vo.getUpdateDate());
 		
 		if(service.modify(vo)) {
@@ -93,9 +92,9 @@ public class FreeBoardController {
 	public String delete(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
 		log.info("remove : " + bno);
-		List<FreeBoardAttachVO> attachList = service.getAttachList(bno);
+		List<AttachBoardVO> attachList = service.getAttachList(bno);
 
-		if(service.delete(bno)) {
+		if(service.remove(bno)) {
 			deleteFiles(attachList);
 			ra.addFlashAttribute("result", "success");
 		}
@@ -103,13 +102,13 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/list" + cri.getLink();
 	}
 	
-	private void deleteFiles(List<FreeBoardAttachVO> attachList) {
+	private void deleteFiles(List<AttachBoardVO> attachList) {
 		if(attachList == null || attachList.size() == 0) {
 			return;
 		}
 		
 		log.info("delete attach files");
-		Iterator<FreeBoardAttachVO> iter = attachList.iterator();
+		Iterator<AttachBoardVO> iter = attachList.iterator();
 		while(iter.hasNext()) {
 			String ele = String.valueOf(iter.next());
 			log.info("AttachList : " + ele);
@@ -136,10 +135,10 @@ public class FreeBoardController {
 	
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<FreeBoardAttachVO>> getAttachList(Long bno){
+	public ResponseEntity<List<AttachBoardVO>> getAttachList(Long bno){
 		log.info("getAttachList : " + bno);
 		
-		return new ResponseEntity<List<FreeBoardAttachVO>>(service.getAttachList(bno), HttpStatus.OK);
+		return new ResponseEntity<List<AttachBoardVO>>(service.getAttachList(bno), HttpStatus.OK);
 	}
 
 }

@@ -8,11 +8,11 @@
 		values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno})
 	</insert>
 	
-	<select id="findByBno" resultType="org.community.domain.RuleBoardAttachVO">
+	<select id="findByBno" resultType="org.community.domain.AttachBoardVO">
 		select * from tbl_ruleAttach where bno = #{bno}	
 	</select>
 	
-	<select id="getOldFiles" resultType="org.community.domain.RuleBoardAttachVO">
+	<select id="getOldFiles" resultType="org.community.domain.AttachBoardVO">
 		select * from tbl_ruleAttach where uploadPath = to_char(sysdate - 1, 'yyyy-mm-dd')
 	</select>
 </mapper>

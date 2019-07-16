@@ -2,8 +2,8 @@ package org.community.mapper;
 
 import java.util.List;
 
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.DevBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +62,7 @@ public class DevBoardMapperTests {
 		Criteria cri = new Criteria();
 		cri.setKeyword("register");
 		cri.setType("T");
-		List<DevBoardVO> list = mapper.list(cri);
+		List<BoardVO> list = mapper.list(cri);
 		
 		list.forEach(obj -> log.info(obj));
 	}

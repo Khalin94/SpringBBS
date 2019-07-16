@@ -2,17 +2,17 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.DevBoardAttachVO;
-import org.community.domain.DevBoardVO;
 import org.community.mapper.DevBoardAttachMapper;
 import org.community.mapper.DevBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class DevBoardServiceImpl implements DevBoardService{
+@Service("devBoardService")
+public class DevBoardServiceImpl implements BoardService{
 	
 	private DevBoardMapper mapper;
 	
@@ -29,20 +29,20 @@ public class DevBoardServiceImpl implements DevBoardService{
 	}
 
 	@Override
-	public DevBoardVO get(Long bno) {
+	public BoardVO get(Long bno) {
 		
 		return mapper.read(bno);
 
 	}
 
 	@Override
-	public List<DevBoardVO> getAll(Criteria cri) {
+	public List<BoardVO> getAll(Criteria cri) {
 		return mapper.list(cri);
 	}
 
 	@Transactional
 	@Override
-	public void register(DevBoardVO vo) {
+	public void register(BoardVO vo) {
 		mapper.insert(vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
@@ -58,7 +58,7 @@ public class DevBoardServiceImpl implements DevBoardService{
 
 	@Transactional
 	@Override
-	public boolean modify(DevBoardVO vo) {
+	public boolean modify(BoardVO vo) {
 		attachMapper.deleteAll(vo.getBno());
 		
 		boolean modifyResult =  mapper.update(vo) == 1;
@@ -85,7 +85,7 @@ public class DevBoardServiceImpl implements DevBoardService{
 	}
 
 	@Override
-	public List<DevBoardAttachVO> getAttachList(Long bno) {
+	public List<AttachBoardVO> getAttachList(Long bno) {
 		return attachMapper.findByBno(bno);
 	}
 

@@ -2,8 +2,8 @@ package org.community.mapper;
 
 import java.util.List;
 
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.FreeBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class BoardMapperTests {
 */	
 	@Test
 	public void testRead() {
-		FreeBoardVO vo = new FreeBoardVO();
+		BoardVO vo = new BoardVO();
 		vo = mapper.read(21l);
 
 		log.info(vo);
@@ -69,7 +69,7 @@ public class BoardMapperTests {
 		cri.setPageNum(5);
 		cri.setAmount(20);
 		
-		List<FreeBoardVO> list = mapper.get(cri);
+		List<BoardVO> list = mapper.get(cri);
 		
 		list.forEach(board -> log.info(board));
 	}
@@ -81,7 +81,7 @@ public class BoardMapperTests {
 		cri.setKeyword("가나");
 		cri.setType("T");
 		
-		List<FreeBoardVO> list = mapper.get(cri);
+		List<BoardVO> list = mapper.get(cri);
 		
 		list.forEach(board -> log.info(board));
 	}

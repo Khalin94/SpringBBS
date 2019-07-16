@@ -56,8 +56,8 @@
               
                 </div>
                <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }">
-               <button type="submit" class="submitBtn">완료</button> 
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
+               <button type="submit" class="submitBtn btn btn-primary btn-user btn-block">등록</button> 
+<!--                 <a href="login.html" class="btn btn-primary btn-user btn-block">
                   Register Account
                 </a>
                 <hr>
@@ -66,11 +66,11 @@
                 </a>
                 <a href="index.html" class="btn btn-facebook btn-user btn-block">
                   <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                </a>
+                </a>   -->
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Forgot Password?</a>
+<!--                 <a class="small" href="forgot-password.html">Forgot Password?</a>   -->
               </div>
               <div class="text-center">
                 <a class="small" href="login.html">Already have an account? Login!</a>

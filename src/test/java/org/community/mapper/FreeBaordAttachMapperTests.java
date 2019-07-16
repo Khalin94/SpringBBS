@@ -1,7 +1,7 @@
 package org.community.mapper;
 
-import org.community.domain.FreeBoardAttachVO;
-import org.community.domain.FreeBoardVO;
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +36,8 @@ public class FreeBaordAttachMapperTests {
 	
 	@Test
 	public void testInsert() {
-		FreeBoardAttachVO vo = new FreeBoardAttachVO();
-		FreeBoardVO boardVo = boardMapper.read(4141l);
+		AttachBoardVO vo = new AttachBoardVO();
+		BoardVO boardVo = boardMapper.read(4141l);
 		
 		vo.setBno(boardVo.getBno());
 		vo.setFileName("test");

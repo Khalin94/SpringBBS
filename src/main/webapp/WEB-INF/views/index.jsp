@@ -148,7 +148,7 @@
 						<c:forEach items="${jobsList }" var="board" begin="0" end="4">
 							<tr>
 								<td> <c:out value="${board.bno }"></c:out> </td>
-								<td><a href="/jobsBoard/get?bno="<c:out value="${board.bno }" />">
+								<td><a href='/jobsBoard/get?bno=<c:out value="${board.bno }" />'>
 									<c:out value="${board.title }"></c:out>	
 								</a>
 								</td>

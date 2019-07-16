@@ -19,7 +19,7 @@
 	where bno = #{bno}
 </update>
 
-<select id="list" resultType="org.community.domain.DevBoardVO">
+<select id="list" resultType="org.community.domain.BoardVO">
 	
 	<![CDATA[
 	select bno, title, content, writer, regDate, hits, replyCnt

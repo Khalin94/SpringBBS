@@ -1,6 +1,5 @@
 package org.community.controller;
 
-import org.community.domain.AuthVO;
 import org.community.domain.MemberVO;
 import org.community.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;

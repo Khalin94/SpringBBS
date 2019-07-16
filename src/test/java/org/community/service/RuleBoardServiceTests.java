@@ -1,9 +1,8 @@
 package org.community.service;
 
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.RuleBoardVO;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -13,11 +12,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RuleBoardServiceTests {
 	
-	private RuleBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setRuleBoardService(RuleBoardService service) {
-		this.service = service;
+	private void setRuleBoardService(BoardService ruleBoardService) {
+		this.service = ruleBoardService;
 	}
 	
 	@Test
@@ -34,7 +33,7 @@ public class RuleBoardServiceTests {
 	
 	@Test
 	public void registerTest() {
-		RuleBoardVO vo = new RuleBoardVO();
+		BoardVO vo = new BoardVO();
 		
 		vo.setTitle("service test title");
 		vo.setContent("service test content");
@@ -49,7 +48,7 @@ public class RuleBoardServiceTests {
 	
 	@Test
 	public void modifyTest() {
-		RuleBoardVO vo = service.get(5l);
+		BoardVO vo = service.get(5l);
 		
 		vo.setTitle("modify Test");
 		vo.setContent("modify content");

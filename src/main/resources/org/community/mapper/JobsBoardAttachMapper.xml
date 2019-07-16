@@ -8,11 +8,11 @@ insert into tbl_jobsAttach (uuid, uploadPath, fileName, fileType, bno)
 values (#{uuid}, #{uploadPath}, #{fileName}, #{fileType}, #{bno})
 </insert>
 
-<select id="findByBno" resultType="org.community.domain.JobsBoardAttachVO">
+<select id="findByBno" resultType="org.community.domain.AttachBoardVO">
 select * from tbl_jobsAttach where bno = #{bno}
 </select>
 
-<select id="getOldfiles" resultType="org.community.domain.JobsBoardAttachVO">
+<select id="getOldfiles" resultType="org.community.domain.AttachBoardVO">
 select * from tbl_jobsAttach where uploadPath = to_char(sysdate - 1, "yyyy-mm-dd")
 </select>
 </mapper>

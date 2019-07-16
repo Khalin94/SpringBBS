@@ -2,10 +2,9 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.DevBoardVO;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -15,11 +14,11 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class DevBoardServiceTests {
 	
-	private DevBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setDevBoardService(DevBoardService service) {
-		this.service = service;
+	private void setDevBoardService(BoardService devBoardService) {
+		this.service = devBoardService;
 	}
 /*	
 	@Test
@@ -30,7 +29,7 @@ public class DevBoardServiceTests {
 	
 	@Test
 	public void testGetAll() {
-		List<DevBoardVO> list = service.getAll(new Criteria(1, 10));
+		List<BoardVO> list = service.getAll(new Criteria(1, 10));
 		list.forEach(ele -> log.info(ele));
 	}
 	/*

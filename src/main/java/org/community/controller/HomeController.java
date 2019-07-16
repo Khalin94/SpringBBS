@@ -1,10 +1,7 @@
 package org.community.controller;
 
 import org.community.domain.Criteria;
-import org.community.service.DevBoardService;
-import org.community.service.FreeBoardService;
-import org.community.service.JobsBoardService;
-import org.community.service.RuleBoardService;
+import org.community.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,29 +32,29 @@ public class HomeController {
 //		return "home";
 //	}
 	
-	private FreeBoardService freeService;
-	private RuleBoardService ruleService;
-	private DevBoardService devService;
-	private JobsBoardService jobsService;
+	private BoardService freeService;
+	private BoardService ruleService;
+	private BoardService devService;
+	private BoardService jobsService;
 	
 	@Autowired
-	private void setFreeBoardService(FreeBoardService freeService) {
-		this.freeService = freeService;
+	private void setFreeBoardService(BoardService freeBoardService) {
+		this.freeService = freeBoardService;
 	}
 	
 	@Autowired
-	private void setRuleBoardService(RuleBoardService ruleService) {
-		this.ruleService = ruleService;
+	private void setRuleBoardService(BoardService ruleBoardService) {
+		this.ruleService = ruleBoardService;
 	}
 	
 	@Autowired
-	private void setDevBoardService(DevBoardService devService) {
-		this.devService = devService;
+	private void setDevBoardService(BoardService devBoardService) {
+		this.devService = devBoardService;
 	}
 	
 	@Autowired
-	private void setJobsBoardService(JobsBoardService jobsService) {
-		this.jobsService = jobsService;
+	private void setJobsBoardService(BoardService jobsBoardService) {
+		this.jobsService = jobsBoardService;
 	}
 
 	@GetMapping("/")

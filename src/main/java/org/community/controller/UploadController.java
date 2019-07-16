@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import org.community.domain.FreeBoardAttachVO;
+import org.community.domain.AttachBoardVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -94,9 +94,9 @@ public class UploadController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/uploadAjaxAction", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<FreeBoardAttachVO>> uploadAjaxAction(MultipartFile[] uploadFile) {
+	public ResponseEntity<List<AttachBoardVO>> uploadAjaxAction(MultipartFile[] uploadFile) {
 		
-		List<FreeBoardAttachVO> list = new ArrayList<FreeBoardAttachVO>();
+		List<AttachBoardVO> list = new ArrayList<AttachBoardVO>();
 
 		log.info("ajax post!");
 		
@@ -113,7 +113,7 @@ public class UploadController {
 		
 		for(MultipartFile multipartFile : uploadFile) {
 
-			FreeBoardAttachVO attachVo = new FreeBoardAttachVO();
+			AttachBoardVO attachVo = new AttachBoardVO();
 			
 			String uploadFileName = multipartFile.getOriginalFilename();
 			
@@ -161,7 +161,7 @@ public class UploadController {
 		}
 		
 		log.info("upload Success!");
-		return new ResponseEntity<List<FreeBoardAttachVO>>(list, HttpStatus.OK);
+		return new ResponseEntity<List<AttachBoardVO>>(list, HttpStatus.OK);
 	}  
 	
 	

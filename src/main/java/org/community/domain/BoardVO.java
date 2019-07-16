@@ -6,8 +6,8 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-public class JobsBoardVO {
-	
+public class BoardVO {
+
 	private Long bno;
 	private String title;
 	private String content;
@@ -17,7 +17,6 @@ public class JobsBoardVO {
 	private Long hits;
 	
 	private int replyCnt;
-	
-	private List<JobsBoardAttachVO> attachList;
 
+	private List<AttachBoardVO> attachList;
 }

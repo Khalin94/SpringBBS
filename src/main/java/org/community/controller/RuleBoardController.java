@@ -6,11 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
 import org.community.domain.PageDTO;
-import org.community.domain.RuleBoardAttachVO;
-import org.community.domain.RuleBoardVO;
-import org.community.service.RuleBoardService;
+import org.community.service.BoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +32,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/ruleBoard/*")
 public class RuleBoardController {
 	Logger log = LoggerFactory.getLogger(RuleBoardController.class);
-	private RuleBoardService service;
+	private BoardService service;
 	
 	@Autowired
-	private void setRuleBoardService(RuleBoardService service) {
-		this.service = service;
+	private void setRuleBoardService(BoardService ruleBoardService) {
+		this.service = ruleBoardService;
 	}
 	
 	@GetMapping({"/get", "/modify"})
@@ -58,7 +58,7 @@ public class RuleBoardController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
-	public String register(RuleBoardVO vo, RedirectAttributes ra) {
+	public String register(BoardVO vo, RedirectAttributes ra) {
 		vo.setHits((long) 0);
 		
 		if(vo.getAttachList() != null) {
@@ -73,7 +73,7 @@ public class RuleBoardController {
 	
 	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
-	public String modify(RuleBoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String modify(BoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
 		if(service.modify(vo)) {
 			ra.addFlashAttribute("result", "success");
 		}
@@ -81,7 +81,7 @@ public class RuleBoardController {
 		return "redirect:/ruleBoard/list" + cri.getLink();
 	}
 	
-	private void deleteFiles(List<RuleBoardAttachVO> list) {
+	private void deleteFiles(List<AttachBoardVO> list) {
 		if(list == null || list.size() ==0) {
 			return;
 		}
@@ -105,7 +105,7 @@ public class RuleBoardController {
 	@PostMapping("/remove")
 	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
-		List<RuleBoardAttachVO> list = service.getAttachList(bno);
+		List<AttachBoardVO> list = service.getAttachList(bno);
 
 		if(service.remove(bno)) {
 			deleteFiles(list);
@@ -117,8 +117,8 @@ public class RuleBoardController {
 	
 	@GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	@ResponseBody
-	public ResponseEntity<List<RuleBoardAttachVO>> getAttachList(Long bno){
-		return new ResponseEntity<List<RuleBoardAttachVO>>(service.getAttachList(bno), HttpStatus.OK);
+	public ResponseEntity<List<AttachBoardVO>> getAttachList(Long bno){
+		return new ResponseEntity<List<AttachBoardVO>>(service.getAttachList(bno), HttpStatus.OK);
 	}
 
 }

@@ -2,8 +2,8 @@ package org.community.mapper;
 
 import java.util.List;
 
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.RuleBoardVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class RuleBoardMapperTests {
 	@Test
 	public void testList() {
 		Criteria cri = new Criteria();
-		List<RuleBoardVO> list  = mapper.list(cri);
+		List<BoardVO> list  = mapper.list(cri);
 		
 		list.forEach(el -> log.info(el));
 	}

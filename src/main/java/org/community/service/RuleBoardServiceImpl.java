@@ -2,17 +2,17 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.RuleBoardAttachVO;
-import org.community.domain.RuleBoardVO;
 import org.community.mapper.RuleBoardAttachMapper;
 import org.community.mapper.RuleBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class RuleBoardServiceImpl implements RuleBoardService{
+@Service("ruleBoardService")
+public class RuleBoardServiceImpl implements BoardService{
 
 	private RuleBoardMapper mapper;
 	
@@ -28,19 +28,19 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 		this.attachMapper = attachMapper;
 	}
 	@Override
-	public RuleBoardVO get(Long bno) {
+	public BoardVO get(Long bno) {
 		System.out.println("bno : " + bno);
 		return mapper.read(bno);
 	}
 
 	@Override
-	public List<RuleBoardVO> getAll(Criteria cri) {
+	public List<BoardVO> getAll(Criteria cri) {
 			return mapper.list(cri);
 	}
 
 	@Transactional
 	@Override
-	public void register(RuleBoardVO vo) {
+	public void register(BoardVO vo) {
 			mapper.insert(vo);
 			
 			if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
@@ -55,7 +55,7 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 
 	@Override
 	@Transactional
-	public boolean modify(RuleBoardVO vo) {
+	public boolean modify(BoardVO vo) {
 		attachMapper.deleteAll(vo.getBno());
 		
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -83,7 +83,7 @@ public class RuleBoardServiceImpl implements RuleBoardService{
 	}
 
 	@Override
-	public List<RuleBoardAttachVO> getAttachList(Long bno) {
+	public List<AttachBoardVO> getAttachList(Long bno) {
 		return attachMapper.findByBno(bno);
 	}
 	

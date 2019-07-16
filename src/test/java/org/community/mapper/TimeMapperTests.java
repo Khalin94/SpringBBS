@@ -15,17 +15,17 @@ public class TimeMapperTests {
 	
 	private TimeMapper timeMapper;
 
-	private FreeBoardMapper board;
+//	private FreeBoardMapper board;
 	
 	@Autowired
 	public void setTimeMapper(TimeMapper timeMapper) {
 		this.timeMapper = timeMapper;
 	}
 	
-	@Autowired
-	public void setBoardMapper(FreeBoardMapper board) {
-		this.board = board;
-	}
+//	@Autowired
+//	public void setBoardMapper(FreeBoardMapper board) {
+//		this.board = board;
+//	}
 	
 //	Logger log = Logger.getLogger(this.getClass().getName());
 	@Test

@@ -6,19 +6,19 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.JobsBoardVO;
 
 public interface JobsBoardMapper {
 	
 	@Select("select bno, title, content,writer, regDate, updateDate, hits from tbl_jobsBoard where bno = #{bno}")
-	public JobsBoardVO read(Long bno);
+	public BoardVO read(Long bno);
 	
-	public List<JobsBoardVO> list(Criteria cri);
+	public List<BoardVO> list(Criteria cri);
 	
-	public void insert(JobsBoardVO vo);
+	public void insert(BoardVO vo);
 	
-	public int update(JobsBoardVO vo);
+	public int update(BoardVO vo);
 	
 	@Delete("delete tbl_jobsBoard where bno = #{bno}")
 	public int delete(Long bno);

@@ -6,20 +6,20 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.RuleBoardVO;
 
 public interface RuleBoardMapper {
 	
 	@Select("select * from tbl_ruleBoard where bno = #{bno}")
-	public RuleBoardVO read(Long bno);
+	public BoardVO read(Long bno);
 	
 //	@Select("seclt * from tbl_ruleBoard where bno > 0")
-	public  List<RuleBoardVO> list(Criteria cri);
+	public  List<BoardVO> list(Criteria cri);
 	
-	public void insert(RuleBoardVO vo);
+	public void insert(BoardVO vo);
 	
-	public int update(RuleBoardVO vo);
+	public int update(BoardVO vo);
 	
 	@Delete("delete tbl_ruleBoard where bno = #{bno}")
 	public int delete(Long bno);

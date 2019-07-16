@@ -2,9 +2,9 @@ package org.community.service;
 
 import java.util.List;
 
+import org.community.domain.AttachBoardVO;
+import org.community.domain.BoardVO;
 import org.community.domain.Criteria;
-import org.community.domain.JobsBoardAttachVO;
-import org.community.domain.JobsBoardVO;
 import org.community.mapper.JobsBoardAttachMapper;
 import org.community.mapper.JobsBoardMapper;
 import org.slf4j.Logger;
@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
-public class JobsBoardServiceImpl implements JobsBoardService{
+@Service("jobsBoardService")
+public class JobsBoardServiceImpl implements BoardService{
 	Logger log = LoggerFactory.getLogger(JobsBoardServiceImpl.class);
 	private JobsBoardMapper mapper;
 	
@@ -32,18 +32,18 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 	}
 
 	@Override
-	public JobsBoardVO get(Long bno) {
+	public BoardVO get(Long bno) {
 		return mapper.read(bno);
 	}
 
 	@Override
-	public List<JobsBoardVO> getAll(Criteria cri) {
+	public List<BoardVO> getAll(Criteria cri) {
 		return mapper.list(cri);
 	}
 
 	@Override
 	@Transactional
-	public void register(JobsBoardVO vo) {
+	public void register(BoardVO vo) {
 		mapper.insert(vo);
 		
 		if(vo.getAttachList() == null || vo.getAttachList().size() <= 0) {
@@ -58,7 +58,7 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 
 	@Transactional
 	@Override
-	public boolean modify(JobsBoardVO vo) {
+	public boolean modify(BoardVO vo) {
 		log.info("vo : " + vo.getAttachList());
 		attachMapper.deleteAll(vo.getBno());
 		boolean modifyResult = mapper.update(vo) == 1;
@@ -88,7 +88,7 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 	}
 
 	@Override
-	public List<JobsBoardAttachVO> getAttachList(Long bno) {
+	public List<AttachBoardVO> getAttachList(Long bno) {
 		return attachMapper.findByBno(bno);
 	}
 
