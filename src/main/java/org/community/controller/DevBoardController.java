@@ -14,9 +14,11 @@ import org.community.service.DevBoardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,11 +52,13 @@ public class DevBoardController {
 		model.addAttribute("page", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
 
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(DevBoardVO vo, RedirectAttributes ra	) {
 		vo.setHits((long)0);
@@ -69,6 +73,7 @@ public class DevBoardController {
 		return "redirect:/devBoard/list";
 	}
 
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String modify(DevBoardVO vo,@ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
 		if(service.modify(vo)) {
@@ -99,8 +104,9 @@ public class DevBoardController {
 		});
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
 		List<DevBoardAttachVO> list = service.getAttachList(bno);
 

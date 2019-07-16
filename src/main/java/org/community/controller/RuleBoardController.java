@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,11 +50,13 @@ public class RuleBoardController {
 		model.addAttribute("page", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(RuleBoardVO vo, RedirectAttributes ra) {
 		vo.setHits((long) 0);
@@ -68,6 +71,7 @@ public class RuleBoardController {
 		return "redirect:/ruleBoard/list";
 	}
 	
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String modify(RuleBoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
 		if(service.modify(vo)) {
@@ -97,8 +101,9 @@ public class RuleBoardController {
 
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String remove(Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
 		List<RuleBoardAttachVO> list = service.getAttachList(bno);
 

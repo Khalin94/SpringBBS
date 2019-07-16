@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,28 +51,30 @@ public class JobsBoardController {
 		model.addAttribute("page", new PageDTO(cri, service.getTotal(cri)));
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/register")
 	public void register() {
 		
 	}
 	
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/register")
 	public String register(JobsBoardVO vo, RedirectAttributes ra) {
-		log.info(vo.getAttachList().toString());
 		vo.setHits((long)0);
-	/*	
+
 		if(vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> {
 				log.info(attach.toString());
 			});
 		}
-		*/
+
 		service.register(vo);
 		
 		ra.addFlashAttribute("result", vo.getBno());
 		return "redirect:/jobsBoard/list";
 	}
 	
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String modify(@ModelAttribute("cri") Criteria cri, JobsBoardVO vo, RedirectAttributes ra) {
 		log.info("===============================");
@@ -109,8 +112,9 @@ public class JobsBoardController {
 		});
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/remove")
-	public String remove(@ModelAttribute("cri") Criteria cri,Long bno, RedirectAttributes ra) {
+	public String remove(@ModelAttribute("cri") Criteria cri,Long bno, RedirectAttributes ra, String writer) {
 		
 		List<JobsBoardAttachVO> list = service.getAttachList(bno);
 

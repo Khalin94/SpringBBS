@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ include file="../includes/header.jsp"%>
 
 <div class="row">
@@ -16,6 +17,7 @@
 	</div>
 	<div class="card-body">
 		<form role="form" action="/devBoard/modify" method="post">
+			<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
 		
 			<input type="hidden" name="pageNum" value="${cri.pageNum }">
 			<input type="hidden" name="amount" value="${cri.amount }">
@@ -45,8 +47,13 @@
 			<div class="form-group">
 				<label>updateDate</label> <input class="form-control" name="updateDate" value='<fmt:formatDate value="${board.updateDate }" pattern = "yyyy/MM/dd"/>' readonly="readonly">
 			</div>
+			<sec:authentication property="principal" var="pinfo"/>
+			<sec:authorize access="isAuthenticated()">
+			<c:if test="${pinfo.username eq board.writer }">
 				<button type="submit" data-oper="modify" class="btn btn-outline-success">수정</button>
 				<button type="submit" data-oper="remove" class="btn btn-outline-danger">삭제</button>
+			</c:if>
+			</sec:authorize>
 				<button type="submit" data-oper="list" class="btn btn-outline-dark">목록</button>
 		</form>
 	</div>
@@ -186,6 +193,9 @@ $(document).ready(function(){
 		return true;
 	}
 	
+	var csrfHeaderName = "${_csrf.headerName}";
+	var csrfTokenValue = "${_csrf.token}";
+
 	$("input[type='file']").change(function(e){
 		var formData = new FormData();
 		
@@ -205,6 +215,9 @@ $(document).ready(function(){
 			url : "/uploadAjaxAction",
 			processData : false,
 			contentType : false,
+			beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+			},
 			data : formData,
 			type : 'POST',
 			dataType : 'json',

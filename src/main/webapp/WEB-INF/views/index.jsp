@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <%@ include file="./includes/header.jsp"%>
 <!--         End of Topbar -->
@@ -10,12 +11,15 @@
 <!-- Page Heading -->
 
 
+
+<sec:authorize access="isAnonymous()">
 <div class="row">
 	<div class="col-xl-3 col-md6- mb-4">
-		<a href="login"><button class="btn btn-primary btn-lg"
+		<a href="/user/login"><button class="btn btn-primary btn-lg"
 				type="button">로그인하러 가기</button></a>
 	</div>
 </div>
+</sec:authorize>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
 	<h1 class="h3 mb-2 text-gray-800">게시판</h1>

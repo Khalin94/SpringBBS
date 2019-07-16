@@ -63,7 +63,7 @@ public class JobsBoardServiceImpl implements JobsBoardService{
 		attachMapper.deleteAll(vo.getBno());
 		boolean modifyResult = mapper.update(vo) == 1;
 		
-		if(modifyResult && vo.getAttachList().size() > 0) {
+		if(modifyResult && vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> {
 				System.out.println("attach : " + attach);
 				attach.setBno(vo.getBno());

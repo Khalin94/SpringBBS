@@ -63,7 +63,7 @@ public class DevBoardServiceImpl implements DevBoardService{
 		
 		boolean modifyResult =  mapper.update(vo) == 1;
 		
-		if(modifyResult && vo.getAttachList().size() > 0) {
+		if(modifyResult && vo.getAttachList() != null) {
 			vo.getAttachList().forEach(attach -> {
 				attach.setBno(vo.getBno());
 				attachMapper.insert(attach);

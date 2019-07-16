@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +30,8 @@
 <script src="/resources/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 <body id="page-top">
+
+
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -70,9 +73,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">내용</h6>
-            <a class="collapse-item" href="<c:out value='/ruleBoard/list' />">이용수칙</a>
-            <a class="collapse-item" href="cards.html">변경사항</a>
+
+            <a class="collapse-item" href="<c:out value='/ruleBoard/list' />">공지사항</a>
+ 
           </div>
         </div>
       </li>
@@ -153,17 +156,43 @@
             <i class="fa fa-bars"></i>
           </button>
 
-        <!--  Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form>
+        
+          
+   <ul class="navbar-nav ml-auto">
+ 	<li class="nav-item dropdown no-arrow">  
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+         
+         <sec:authentication property="principal" var="pinfo"/>
+         <sec:authorize access="isAnonymous()">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small"> 로그인 하기</span>
+         </sec:authorize>
+         <sec:authorize access="isAuthenticated()">
+         <span class="mr-2 d-none d-lg-inline text-gray-600 small">${pinfo.username } </span>
+         </sec:authorize>
+         
+<!--          <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">  -->
+      </a>
+      <!-- Dropdown - User Information -->
+      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+      <div class="dropdown-divider"></div>
+      <sec:authorize access="isAuthenticated()">
+      <form action="/customLogout" method="post">
+       <button class="dropdown-item" data-target="#logoutModal">
+         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Logout
+       </button>
+       <input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" />
+       </form>
+	</sec:authorize>
+	<sec:authorize access="isAnonymous()">
+		<a class="dropdown-item" href="/user/login" data-target="#logoutModal">
+         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                Login
+       </a>
+	</sec:authorize>
+    </div>
+  </li> 
+ </ul>
 
        <!--    Topbar Navbar -->
 <!--           <ul class="navbar-nav ml-auto">

@@ -8,7 +8,7 @@
 <%@ include file="../includes/header.jsp"%>
 
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">이용 수칙</h1>
+<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
 <p class="mb-4"></p>
 
 <!-- DataTales Example -->

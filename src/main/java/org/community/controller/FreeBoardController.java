@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -76,16 +77,20 @@ public class FreeBoardController {
 		model.addAttribute("board", service.get(bno));
 	}
 	
+	@PreAuthorize("principal.username == #vo.writer")
 	@PostMapping("/modify")
 	public String modify(FreeBoardVO vo, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+		log.info("title : "+vo.getTitle() + " content : " + vo.getContent() + " writer : " + vo.getWriter()+" reply cnt : " +vo.getReplyCnt()+" bno : " +vo.getBno()+" hits : "+vo.getHits()+" AttachList : " +vo.getAttachList()+" regDate : " + vo.getRegDate()+" updateDate : " +vo.getUpdateDate());
+		
 		if(service.modify(vo)) {
 			ra.addFlashAttribute("result", "success");
 		}
 			return "redirect:/freeBoard/list" + cri.getLink();
 	}
 	
+	@PreAuthorize("principal.username == #writer")
 	@PostMapping("/delete")
-	public String delete(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra) {
+	public String delete(@RequestParam("bno") Long bno, @ModelAttribute("cri") Criteria cri, RedirectAttributes ra, String writer) {
 		
 		log.info("remove : " + bno);
 		List<FreeBoardAttachVO> attachList = service.getAttachList(bno);

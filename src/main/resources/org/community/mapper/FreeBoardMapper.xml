@@ -17,7 +17,7 @@
 <update id="update">
 	update tbl_freeboard set title = #{title},
 	content = #{content},
-	writer = #{writer},
+ 	writer = #{writer}, 
 	updatedate = sysdate
 	where bno = #{bno}
 </update>
