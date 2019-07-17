@@ -1,16 +1,16 @@
 package org.community.service;
 
 import org.community.domain.Criteria;
-import org.community.domain.RuleReplyPageDTO;
-import org.community.domain.RuleReplyVO;
+import org.community.domain.ReplyPageDTO;
+import org.community.domain.ReplyVO;
 import org.community.mapper.RuleBoardMapper;
 import org.community.mapper.RuleReplyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class RuleReplyServiceImpl implements RuleReplyService{
+@Service("ruleReplyService")
+public class RuleReplyServiceImpl implements ReplyService{
 	
 	private RuleReplyMapper mapper;
 	private RuleBoardMapper boardMapper;
@@ -26,25 +26,25 @@ public class RuleReplyServiceImpl implements RuleReplyService{
 
 	@Transactional
 	@Override
-	public int register(RuleReplyVO vo) {
+	public int register(ReplyVO vo) {
 		boardMapper.updateReplyCnt(vo.getBno(), 1);
 		return mapper.insert(vo);
 	}
 
 	@Override
-	public RuleReplyVO get(Long rno) {
+	public ReplyVO get(Long rno) {
 		return mapper.read(rno);
 	}
 
 	@Override
-	public int modify(RuleReplyVO vo) {
+	public int modify(ReplyVO vo) {
 		return mapper.update(vo);
 	}
 
 	@Transactional
 	@Override
 	public int remove(Long rno) {
-		RuleReplyVO vo = mapper.read(rno);
+		ReplyVO vo = mapper.read(rno);
 		
 		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		
@@ -52,8 +52,8 @@ public class RuleReplyServiceImpl implements RuleReplyService{
 	}
 
 	@Override
-	public RuleReplyPageDTO getList(Criteria cri, Long bno) {
-		return new RuleReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
+	public ReplyPageDTO getList(Criteria cri, Long bno) {
+		return new ReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
 
 	

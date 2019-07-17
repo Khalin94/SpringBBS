@@ -1,8 +1,8 @@
 package org.community.service;
 
 import org.community.domain.Criteria;
-import org.community.domain.JobsReplyPageDTO;
-import org.community.domain.JobsReplyVO;
+import org.community.domain.ReplyPageDTO;
+import org.community.domain.ReplyVO;
 import org.community.mapper.JobsBoardMapper;
 import org.community.mapper.JobsReplyMapper;
 import org.slf4j.Logger;
@@ -11,8 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
-public class JobsReplyServiceImpl implements JobsReplyService{
+@Service("jobsReplyService")
+public class JobsReplyServiceImpl implements ReplyService{
 	
 	Logger log = LoggerFactory.getLogger(JobsReplyServiceImpl.class);
 	private JobsReplyMapper mapper;
@@ -29,7 +29,7 @@ public class JobsReplyServiceImpl implements JobsReplyService{
 
 	@Transactional
 	@Override
-	public int register(JobsReplyVO vo) {
+	public int register(ReplyVO vo) {
 		log.info("register : " + vo);
 		
 		boardMapper.updateReplyCnt(vo.getBno(), 1);
@@ -38,14 +38,14 @@ public class JobsReplyServiceImpl implements JobsReplyService{
 	}
 
 	@Override
-	public JobsReplyVO get(Long rno) {
+	public ReplyVO get(Long rno) {
 		log.info("rno : " + rno);
 		
 		return mapper.read(rno);
 	}
 
 	@Override
-	public int modify(JobsReplyVO vo) {
+	public int modify(ReplyVO vo) {
 		log.info("modify : " + vo);
 		
 		return mapper.update(vo);
@@ -55,16 +55,16 @@ public class JobsReplyServiceImpl implements JobsReplyService{
 	@Override
 	public int remove(Long rno) {
 		log.info("rno : " + rno);
-		JobsReplyVO vo = mapper.read(rno);
+		ReplyVO vo = mapper.read(rno);
 		
 		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		return mapper.delete(rno);
 	}
 
 	@Override
-	public JobsReplyPageDTO getList(Criteria cri, Long bno) {
+	public ReplyPageDTO getList(Criteria cri, Long bno) {
 		log.info("bno : " + bno);
-		return new JobsReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
+		return new ReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
 	
 

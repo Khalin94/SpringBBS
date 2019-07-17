@@ -177,7 +177,7 @@
 				<button id = "modalModBtn" type="button" class="btn btn-warning">수정</button>
 				<button id= "modalRemoveBtn" type='button' class = "btn btn-danger">삭제</button>
 				<button id ="modalRegisterBtn" type="button" class="btn btn-primary">등록</button>
-				<button id= "modalCloseBtn" type="button" class="btn">닫기</button>
+				<button id= "modalCloseBtn" type="button" class="btn" data-dismiss="modal">닫기</button>
 			</div>
 		</div>
 	</div>

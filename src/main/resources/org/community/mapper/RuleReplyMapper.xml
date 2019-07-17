@@ -9,7 +9,7 @@
 		values (seq_ruleReply.nextval, #{bno}, #{reply}, #{replyer})
 	</insert>
 	
-	<select id="getList" resultType="org.community.domain.RuleReplyVO">
+	<select id="getList" resultType="org.community.domain.ReplyVO">
 		select rno, bno, reply, replyer, replyDate, updateDate
 		from tbl_ruleReply
 		where bno = #{bno}

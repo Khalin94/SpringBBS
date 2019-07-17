@@ -7,22 +7,22 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.community.domain.Criteria;
-import org.community.domain.RuleReplyVO;
+import org.community.domain.ReplyVO;
 
 public interface RuleReplyMapper {
 	
-	public int insert(RuleReplyVO vo);
+	public int insert(ReplyVO vo);
 	
 	@Select("select * from tbl_ruleReply where rno = #{rno}")
-	public RuleReplyVO read(Long rno);
+	public ReplyVO read(Long rno);
 	
 	@Update("update tbl_ruleReply set reply = #{reply}, updateDate = sysdate where rno = #{rno}")
-	public int update(RuleReplyVO vo);
+	public int update(ReplyVO vo);
 	
 	@Delete("delete from tbl_ruleReply where rno = #{rno}")
 	public int delete(Long rno);
 	
-	public List<RuleReplyVO> getList(@Param("cri") Criteria cri, @Param("bno")Long bno);
+	public List<ReplyVO> getList(@Param("cri") Criteria cri, @Param("bno")Long bno);
 	
 	@Select("select count(rno) from tbl_ruleReply where bno = #{bno}")
 	public int getCount(Long bno);

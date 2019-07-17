@@ -3,7 +3,7 @@ package org.community.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.community.service.RuleReplyService;
+import org.community.service.ReplyService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,10 +23,10 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class RuleReplyControllerTests {
 	
-	private RuleReplyService service;
+	private ReplyService service;
 	
 	@Autowired
-	private void setRuleReplyService(RuleReplyService service) {
+	private void setRuleReplyService(ReplyService service) {
 		this.service = service;
 	}
 	

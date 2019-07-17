@@ -3,7 +3,7 @@ package org.community.mapper;
 import java.util.List;
 
 import org.community.domain.Criteria;
-import org.community.domain.FreeReplyVO;
+import org.community.domain.ReplyVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class FreeReplyMapperTests {
 	
 	@Test
 	public void insertTest() {
-		FreeReplyVO vo = new FreeReplyVO();
+		ReplyVO vo = new ReplyVO();
 		
 		vo.setBno(4141l);
 		vo.setReply("test Reply");
@@ -43,7 +43,7 @@ public class FreeReplyMapperTests {
 
 	@Test
 	public void readTest() {
-		FreeReplyVO vo = mapper.read(1l);
+		ReplyVO vo = mapper.read(1l);
 		
 		log.info(vo);
 	}
@@ -55,7 +55,7 @@ public class FreeReplyMapperTests {
 	
 	@Test
 	public void updateTest() {
-		FreeReplyVO vo = mapper.read(2l);
+		ReplyVO vo = mapper.read(2l);
 		
 		vo.setReply("update Test");
 		int count = mapper.update(vo);
@@ -65,7 +65,7 @@ public class FreeReplyMapperTests {
 	@Test
 	public void listTest() {
 		Criteria cri = new Criteria(1, 10);
-		List<FreeReplyVO> replyList = mapper.getList(cri, 4141l);
+		List<ReplyVO> replyList = mapper.getList(cri, 4141l);
 		
 		replyList.forEach(reply -> log.info(reply));
 	}

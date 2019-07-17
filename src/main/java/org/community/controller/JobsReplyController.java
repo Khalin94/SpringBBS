@@ -1,9 +1,9 @@
 package org.community.controller;
 
 import org.community.domain.Criteria;
-import org.community.domain.JobsReplyPageDTO;
-import org.community.domain.JobsReplyVO;
-import org.community.service.JobsReplyService;
+import org.community.domain.ReplyPageDTO;
+import org.community.domain.ReplyVO;
+import org.community.service.ReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -25,15 +25,15 @@ public class JobsReplyController {
 	
 	Logger log = LoggerFactory.getLogger(JobsReplyController.class);
 	
-	private JobsReplyService service;
+	private ReplyService service;
 	
-	public JobsReplyController(JobsReplyService service) {
-		this.service = service;
+	public JobsReplyController(ReplyService jobsReplyService) {
+		this.service = jobsReplyService;
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> register(@RequestBody JobsReplyVO vo){
+	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		log.info("register : " + vo);
 
 		return service.register(vo) == 1 ? new ResponseEntity<String>("Success", HttpStatus.OK):
@@ -41,15 +41,15 @@ public class JobsReplyController {
 	}
 	
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<JobsReplyVO> get(@PathVariable("rno") Long rno){
+	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno){
 		log.info("rno : " + rno);
-		return new ResponseEntity<JobsReplyVO>(service.get(rno), HttpStatus.OK);
+		return new ResponseEntity<ReplyVO>(service.get(rno), HttpStatus.OK);
 	}
 	
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value = "/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@PathVariable("rno") Long rno, @RequestBody JobsReplyVO vo){
+	public ResponseEntity<String> modify(@PathVariable("rno") Long rno, @RequestBody ReplyVO vo){
 		vo.setRno(rno);
 		
 		log.info("rno : " + rno);
@@ -61,18 +61,18 @@ public class JobsReplyController {
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno, @RequestBody JobsReplyVO vo){
+	public ResponseEntity<String> remove(@PathVariable("rno") Long rno, @RequestBody ReplyVO vo){
 		log.info("rno : " + rno);
 		return service.remove(rno) == 1 ? new ResponseEntity<String>("Success", HttpStatus.OK) :
 			new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<JobsReplyPageDTO> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("bno") Long bno, @PathVariable("page") int page){
 		Criteria cri = new Criteria(page, 10);
 		log.info("bno : " + bno);
 		log.info("page : " + page);
-		return new ResponseEntity<JobsReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 
 }

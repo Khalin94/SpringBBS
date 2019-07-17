@@ -3,7 +3,7 @@ package org.community.mapper;
 import java.util.List;
 
 import org.community.domain.Criteria;
-import org.community.domain.DevReplyVO;
+import org.community.domain.ReplyVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ public class DevReplyMapperTests {
 	public void testGetList() {
 		Criteria cri = new Criteria(1, 10);
 		
-		List<DevReplyVO> list = mapper.getList(cri, 24l);
+		List<ReplyVO> list = mapper.getList(cri, 24l);
 		
 		list.forEach(board -> log.info(board));
 	}

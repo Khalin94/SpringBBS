@@ -1,9 +1,9 @@
 package org.community.controller;
 
 import org.community.domain.Criteria;
-import org.community.domain.FreeReplyVO;
 import org.community.domain.ReplyPageDTO;
-import org.community.service.FreeReplyService;
+import org.community.domain.ReplyVO;
+import org.community.service.ReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,16 +27,16 @@ public class FreeReplyController {
 
 	Logger log = LoggerFactory.getLogger(FreeReplyController.class);
 	
-	private FreeReplyService service;
+	private ReplyService service;
 	
 	@Autowired
-	private void setFreeReplyService(FreeReplyService service) {
-		this.service = service;
+	private void setFreeReplyService(ReplyService freeReplyService) {
+		this.service = freeReplyService;
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> register(@RequestBody FreeReplyVO vo){
+	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		
 		log.info("RelyVO : " + vo);
 		int insertCount = service.register(vo);
@@ -51,17 +51,17 @@ public class FreeReplyController {
 	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<ReplyPageDTO>(service.getListPage(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 	
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<FreeReplyVO> get(@PathVariable("rno") Long rno){
-		return new ResponseEntity<FreeReplyVO>(service.get(rno), HttpStatus.OK);
+	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno){
+		return new ResponseEntity<ReplyVO>(service.get(rno), HttpStatus.OK);
 	}
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping(value = "/{rno}")
-	public ResponseEntity<String> remove(@RequestBody FreeReplyVO vo, @PathVariable("rno") Long rno){
+	public ResponseEntity<String> remove(@RequestBody ReplyVO vo, @PathVariable("rno") Long rno){
 		log.info("vo : " + vo);
 		log.info("rno : " + rno);
 		return service.remove(rno) == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) :
@@ -70,7 +70,7 @@ public class FreeReplyController {
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value="/{rno}", consumes = "application/json", produces= {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@RequestBody FreeReplyVO vo, @PathVariable("rno") Long rno){
+	public ResponseEntity<String> modify(@RequestBody ReplyVO vo, @PathVariable("rno") Long rno){
 		vo.setRno(rno);
 		
 		return service.modify(vo) == 1 ? new ResponseEntity<String>("success", HttpStatus.OK) :

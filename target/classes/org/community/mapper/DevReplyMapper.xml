@@ -9,7 +9,7 @@
 		values (seq_devReply.nextval, #{bno}, #{reply}, #{replyer})
 	</insert>
 	
-	<select id="getList" resultType="org.community.domain.DevReplyVO">
+	<select id="getList" resultType="org.community.domain.ReplyVO">
 	<![CDATA[
 		select rno, bno, reply, replyer, replyDate, updateDate
 		from 

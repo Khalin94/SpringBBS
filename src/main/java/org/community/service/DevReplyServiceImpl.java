@@ -1,8 +1,8 @@
 package org.community.service;
 
 import org.community.domain.Criteria;
-import org.community.domain.DevReplyPageDTO;
-import org.community.domain.DevReplyVO;
+import org.community.domain.ReplyPageDTO;
+import org.community.domain.ReplyVO;
 import org.community.mapper.DevBoardMapper;
 import org.community.mapper.DevReplyMapper;
 import org.slf4j.Logger;
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Service
-public class DevReplyServiceImpl implements DevReplyService{
+@Service("devReplyService")
+public class DevReplyServiceImpl implements ReplyService{
 
 	Logger logger = LoggerFactory.getLogger(DevReplyServiceImpl.class);
 
@@ -31,7 +31,7 @@ public class DevReplyServiceImpl implements DevReplyService{
 
 	@Transactional
 	@Override
-	public int register(DevReplyVO vo) {
+	public int register(ReplyVO vo) {
 		logger.info("register : " + vo);
 		
 		boardMapper.updateReplyCnt(vo.getBno(), 1);
@@ -40,14 +40,14 @@ public class DevReplyServiceImpl implements DevReplyService{
 	}
 
 	@Override
-	public DevReplyVO get(Long rno) {
+	public ReplyVO get(Long rno) {
 		logger.info("get rno : " + rno);
 		
 		return mapper.read(rno);
 	}
 
 	@Override
-	public int modify(DevReplyVO vo) {
+	public int modify(ReplyVO vo) {
 		logger.info("modify vo : " + vo);
 		
 		return mapper.update(vo);
@@ -58,7 +58,7 @@ public class DevReplyServiceImpl implements DevReplyService{
 	public int remove(Long rno) {
 		logger.info("remove rno : " + rno);
 		
-		DevReplyVO vo = mapper.read(rno);
+		ReplyVO vo = mapper.read(rno);
 		
 		boardMapper.updateReplyCnt(vo.getBno(), -1);
 		
@@ -66,9 +66,9 @@ public class DevReplyServiceImpl implements DevReplyService{
 	}
 
 	@Override
-	public DevReplyPageDTO getList(Criteria cri, Long bno) {
+	public ReplyPageDTO getList(Criteria cri, Long bno) {
 		logger.info("DevReply bno : "+ bno);
 		
-		return new DevReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
+		return new ReplyPageDTO(mapper.getCount(bno), mapper.getList(cri, bno));
 	}
 }

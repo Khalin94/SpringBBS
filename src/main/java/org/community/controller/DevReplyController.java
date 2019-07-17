@@ -1,9 +1,9 @@
 package org.community.controller;
 
 import org.community.domain.Criteria;
-import org.community.domain.DevReplyPageDTO;
-import org.community.domain.DevReplyVO;
-import org.community.service.DevReplyService;
+import org.community.domain.ReplyPageDTO;
+import org.community.domain.ReplyVO;
+import org.community.service.ReplyService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,16 +26,16 @@ public class DevReplyController {
 	
 	Logger log = LoggerFactory.getLogger(DevReplyController.class);
 	
-	private DevReplyService service;
+	private ReplyService service;
 	
 	@Autowired
-	private void setDevReplyService(DevReplyService service) {
-		this.service = service;
+	private void setDevReplyService(ReplyService devReplyService) {
+		this.service = devReplyService;
 	}
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping(value = "/new", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> register(@RequestBody DevReplyVO vo){
+	public ResponseEntity<String> register(@RequestBody ReplyVO vo){
 		log.info("DevReplyVO : " + vo);
 		int insertCount = service.register(vo);
 		
@@ -47,14 +47,14 @@ public class DevReplyController {
 	}
 	
 	@GetMapping(value = "/{rno}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<DevReplyVO> get(@PathVariable("rno") Long rno){
+	public ResponseEntity<ReplyVO> get(@PathVariable("rno") Long rno){
 		log.info("get rno : " + rno);
-		return new ResponseEntity<DevReplyVO>(service.get(rno), HttpStatus.OK);
+		return new ResponseEntity<ReplyVO>(service.get(rno), HttpStatus.OK);
 	}
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@RequestMapping(method = {RequestMethod.PUT, RequestMethod.PATCH}, value ="/{rno}", consumes = "application/json", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> modify(@PathVariable("rno")Long rno, @RequestBody DevReplyVO vo){
+	public ResponseEntity<String> modify(@PathVariable("rno")Long rno, @RequestBody ReplyVO vo){
 		vo.setRno(rno);
 		log.info("modify rno :" + rno);
 
@@ -64,17 +64,17 @@ public class DevReplyController {
 	
 	@PreAuthorize("principal.username == #vo.replyer")
 	@DeleteMapping(value = "/{rno}", produces = {MediaType.TEXT_PLAIN_VALUE})
-	public ResponseEntity<String> remove(@PathVariable("rno") Long rno, @RequestBody DevReplyVO vo){
+	public ResponseEntity<String> remove(@PathVariable("rno") Long rno, @RequestBody ReplyVO vo){
 		log.info("remove rno : " + rno);
 		return service.remove(rno) == 1 ? new ResponseEntity<String>("Success", HttpStatus.OK) 
 				: new ResponseEntity<String>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@GetMapping(value = "/pages/{bno}/{page}", produces = {MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_UTF8_VALUE})
-	public ResponseEntity<DevReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
+	public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page, @PathVariable("bno") Long bno){
 		Criteria cri = new Criteria(page, 10);
 		
-		return new ResponseEntity<DevReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
+		return new ResponseEntity<ReplyPageDTO>(service.getList(cri, bno), HttpStatus.OK);
 	}
 		
 	}

@@ -3,8 +3,7 @@ package org.community.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.community.domain.FreeReplyVO;
-import org.community.service.FreeReplyService;
+import org.community.domain.ReplyVO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,7 +43,7 @@ public class FreeReplyControllerTests {
 	
 	@Test
 	public void testRegister() throws Exception {
-		FreeReplyVO vo = new FreeReplyVO();
+		ReplyVO vo = new ReplyVO();
 		
 		vo.setBno(4141l);
 		vo.setReply("test Controller123");

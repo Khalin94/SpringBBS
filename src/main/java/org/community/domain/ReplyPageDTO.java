@@ -10,6 +10,6 @@ import lombok.Data;
 public class ReplyPageDTO {
 	
 	private int replyCnt;
-	private List<FreeReplyVO> list;
+	private List<ReplyVO> list;
 
 }
