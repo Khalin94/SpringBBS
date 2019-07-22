@@ -30,4 +30,6 @@ public interface FreeBoardMapper {
 	@Update("update tbl_freeBoard set replycnt = replycnt + #{amount} where bno = #{bno}")
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
 
+	@Update("update tbl_freeBoard set hits = hits+1 where bno=#{bno}")
+	public void updateHits(Long bno);
 }

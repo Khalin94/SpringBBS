@@ -28,5 +28,8 @@ public interface DevBoardMapper {
 	
 	@Update("update tbl_devBoard set replyCnt = replyCnt + #{amount} where bno = #{bno}")
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+	
+	@Update("update tbl_devBoard set hits = hits+1 where bno = #{bno}")
+	public void updateHits(Long bno);
 
 }

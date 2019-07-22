@@ -53,6 +53,7 @@ public class FreeBoardServiceImpl implements BoardService{
 	@Override
 	public BoardVO get(Long bno) {
 		System.out.println(bno);
+		mapper.updateHits(bno);
 		return mapper.read(bno);
 	}
 

@@ -30,6 +30,7 @@ public class RuleBoardServiceImpl implements BoardService{
 	@Override
 	public BoardVO get(Long bno) {
 		System.out.println("bno : " + bno);
+		mapper.updateHits(bno);
 		return mapper.read(bno);
 	}
 

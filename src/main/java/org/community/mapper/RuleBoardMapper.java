@@ -29,5 +29,8 @@ public interface RuleBoardMapper {
 	
 	@Update("update tbl_ruleBoard set replyCnt = replyCnt + #{amount} where bno = #{bno}")
 	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+	
+	@Update("update tbl_ruleBoard set hits = hits+1 where bno = #{bno}")
+	public void updateHits(Long bno);
 
 }

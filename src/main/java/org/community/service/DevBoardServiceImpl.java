@@ -30,7 +30,7 @@ public class DevBoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardVO get(Long bno) {
-		
+		mapper.updateHits(bno);
 		return mapper.read(bno);
 
 	}
